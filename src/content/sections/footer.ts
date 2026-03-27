@@ -4,6 +4,7 @@ export const footerContent = {
   navigation: [
     { label: 'Прыжки в тандеме', href: '#formats' },
     { label: 'Обучение', href: '/training' },
+    { label: 'Сертификат', href: '/certificate' },
     { label: 'Спортивные прыжки', href: '#formats' }
   ],
   contacts: [

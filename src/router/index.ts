@@ -4,6 +4,7 @@ import TandemPage from '@/views/TandemPage.vue'
 import SoloPage from '@/views/SoloPage.vue'
 import SportPage from '@/views/SportPage.vue'
 import TrainingPage from '@/views/TrainingPage.vue'
+import CertificatePage from '@/views/CertificatePage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/training',
       name: 'training',
       component: TrainingPage
+    },
+    {
+      path: '/certificate',
+      name: 'certificate',
+      component: CertificatePage
     }
   ],
   scrollBehavior(to, from, savedPosition) {

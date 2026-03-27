@@ -77,7 +77,7 @@ const scrollToTop = () => {
           <Zap class="w-6 h-6 fill-sky-500 text-sky-500" />
           <span>DZ EXTREME</span>
         </a>
-        <div
+          <div
           class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400"
         >
           <a
@@ -93,6 +93,13 @@ const scrollToTop = () => {
             class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
           >
             Обучение
+          </RouterLink>
+          <RouterLink
+            to="/certificate"
+            @click="closeMobileMenu"
+            class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
+          >
+            Сертификат
           </RouterLink>
           <a
             href="#about"
@@ -156,6 +163,14 @@ const scrollToTop = () => {
             role="menuitem"
           >
             Обучение
+          </RouterLink>
+          <RouterLink
+            to="/certificate"
+            @click="closeMobileMenu"
+            class="hover:text-white cursor-pointer focus-visible:text-white text-left"
+            role="menuitem"
+          >
+            Сертификат
           </RouterLink>
           <a
             href="#about"
