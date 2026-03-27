@@ -1,0 +1,175 @@
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useRoute, RouterLink } from 'vue-router'
+import { Zap, Menu, X } from 'lucide-vue-next'
+import { useBookingModal } from '@/composables/useBookingModal'
+
+const route = useRoute()
+const isScrolled = ref(false)
+const mobileMenuOpen = ref(false)
+const mobileMenuId = 'mobile-menu'
+const { openModal } = useBookingModal()
+
+const isHomePage = computed(() => route.path === '/')
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 50
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+
+const closeMobileMenu = () => {
+  mobileMenuOpen.value = false
+}
+
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+}
+
+const scrollToSection = (sectionId: string) => {
+  closeMobileMenu()
+  
+  if (!isHomePage.value) {
+    window.location.href = `/#${sectionId}`
+    return
+  }
+  
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+const scrollToTop = () => {
+  closeMobileMenu()
+  if (isHomePage.value) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  } else {
+    window.location.href = '/'
+  }
+}
+</script>
+
+<template>
+  <nav
+    :class="[
+      'fixed top-4 left-4 right-4 z-50 transition-all duration-700 rounded-2xl',
+      isScrolled
+        ? 'bg-slate-950/90 backdrop-blur-xl py-4 border border-white/10 shadow-lg'
+        : 'bg-slate-950/80 backdrop-blur-xl py-6 border border-white/5'
+    ]"
+    role="navigation"
+    aria-label="Основная навигация"
+  >
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <div class="flex items-center gap-12">
+        <a
+          href="/"
+          class="text-2xl font-black tracking-tighter flex items-center gap-2 text-white focus-visible:outline-none"
+          @click.prevent="scrollToTop"
+        >
+          <Zap class="w-6 h-6 fill-sky-500 text-sky-500" />
+          <span>DZ EXTREME</span>
+        </a>
+        <div
+          class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400"
+        >
+          <a
+            href="#formats"
+            @click.prevent="scrollToSection('formats')"
+            class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
+          >
+            Форматы
+          </a>
+          <RouterLink
+            to="/training"
+            @click="closeMobileMenu"
+            class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
+          >
+            Обучение
+          </RouterLink>
+          <a
+            href="#about"
+            @click.prevent="scrollToSection('about')"
+            class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
+          >
+            О нас
+          </a>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <button
+          @click="openModal('tandem')"
+          class="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+        >
+          <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
+        </button>
+        <button
+          class="lg:hidden text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-1"
+          @click="toggleMobileMenu"
+          :aria-expanded="mobileMenuOpen"
+          :aria-controls="mobileMenuId"
+          aria-label="Открыть меню"
+        >
+          <X v-if="mobileMenuOpen" class="w-6 h-6" />
+          <Menu v-else class="w-6 h-6" />
+        </button>
+      </div>
+    </div>
+
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0 -translate-y-2"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition-all duration-300 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-2"
+    >
+      <div
+        v-if="mobileMenuOpen"
+        :id="mobileMenuId"
+        class="lg:hidden mx-4 mt-2 bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg"
+        role="menu"
+      >
+        <div
+          class="px-6 py-8 flex flex-col gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-400"
+        >
+          <a
+            href="#formats"
+            @click.prevent="scrollToSection('formats')"
+            class="hover:text-white cursor-pointer focus-visible:text-white text-left"
+            role="menuitem"
+          >
+            Форматы
+          </a>
+          <RouterLink
+            to="/training"
+            @click="closeMobileMenu"
+            class="hover:text-white cursor-pointer focus-visible:text-white text-left"
+            role="menuitem"
+          >
+            Обучение
+          </RouterLink>
+          <a
+            href="#about"
+            @click.prevent="scrollToSection('about')"
+            class="hover:text-white cursor-pointer focus-visible:text-white text-left"
+            role="menuitem"
+          >
+            О нас
+          </a>
+          <button @click="openModal('tandem'); closeMobileMenu()" class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900" role="menuitem">
+            <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
+          </button>
+        </div>
+      </div>
+    </Transition>
+  </nav>
+</template>
