@@ -2,10 +2,10 @@ export const certificateModalContent = {
   title: 'Купить сертификат',
   subtitle: 'Оформите подарочный сертификат на прыжок с парашютом',
   denominations: [
-    { value: '18000', label: 'Тандем прыжок — 18 000 ₽' },
-    { value: '5000', label: 'Ознакомительный прыжок — 5 000 ₽' },
-    { value: '75000', label: 'Курс обучения — 75 000 ₽' },
-    { value: 'custom', label: 'Своя сумма' }
+    { value: '17400', label: 'Тандем прыжок — 17 400 ₽' },
+    { value: '7900', label: 'Самостоятельный прыжок — 7 900 ₽' },
+    { value: '130000', label: 'Курс обучения — 130 000 ₽' },
+    { value: 'custom', label: 'Своя сумма' },
   ],
   fields: {
     recipientName: 'Имя получателя',
@@ -19,13 +19,13 @@ export const certificateModalContent = {
     senderName: 'Ваше имя (необязательно)',
     senderNamePlaceholder: 'Александр',
     message: 'Пожелание (необязательно)',
-    messagePlaceholder: 'С наилучшими пожеланиями...'
+    messagePlaceholder: 'С наилучшими пожеланиями...',
   },
   submit: 'Оформить сертификат',
   submitting: 'Оформляем...',
   privacy: 'Нажимая кнопку, вы соглашаетесь с обработкой персональных данных',
   success: {
     title: 'Сертификат оформлен!',
-    message: 'Мы отправим сертификат на указанный email в течение часа'
-  }
+    message: 'Мы отправим сертификат на указанный email в течение часа',
+  },
 }

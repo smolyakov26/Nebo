@@ -3,7 +3,7 @@ export const heroContent = {
   title: 'НЕБО',
   titleAccent: 'ТВОЯ СТИХИЯ',
   description: 'Почувствуйте абсолютную свободу в свободном падении. Мы создаем моменты, которые меняют жизнь навсегда.',
-  primaryCta: 'НАЧАТЬ ПОЛЕТ',
+  primaryCta: 'Выбрать прыжок',
   secondaryCta: 'Смотреть видео'
 }
 

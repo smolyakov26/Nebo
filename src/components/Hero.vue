@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Play } from 'lucide-vue-next'
 import { heroContent } from '@/content/sections/hero'
+
+const imageLoaded = ref(true)
 
 const scrollToFormats = () => {
   const element = document.getElementById('formats')
@@ -8,30 +11,44 @@ const scrollToFormats = () => {
     element.scrollIntoView({ behavior: 'smooth' })
   }
 }
+
+const handleImageError = () => {
+  imageLoaded.value = false
+}
 </script>
 
 <template>
-  <section class="relative h-screen flex items-center justify-center overflow-hidden bg-slate-950">
-    <div class="absolute inset-0 z-0 opacity-50" aria-hidden="true">
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Gradient fallback background -->
+    <div
+      v-if="!imageLoaded"
+      class="absolute inset-0 z-0 bg-gradient-to-br from-slate-900 via-slate-800 to-sky-900"
+      aria-hidden="true"
+    />
+    <!-- Image background -->
+    <div v-else class="absolute inset-0 z-0" aria-hidden="true">
       <img
-        src="https://picsum.photos/seed/skydiving-hero/1920/1080"
+        src="/images/home/hero-sky.jpg"
         alt=""
-        class="w-full h-full object-cover scale-105"
+        class="w-full h-full object-cover"
         referrerPolicy="no-referrer"
+        @error="handleImageError"
       />
-      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/40 to-slate-950" />
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-slate-950/10 via-transparent to-slate-950/50"
+      />
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
       <div class="animate-fade-in-up">
         <div
-          class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-sky-500/20 border border-sky-500/30 text-sky-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-8"
+          class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-sky-500/20 border border-sky-500/30 text-sky-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
         >
           <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
           {{ heroContent.badge }}
         </div>
         <h1
-          class="text-6xl md:text-[9rem] font-black text-white leading-[0.85] tracking-tighter mb-12 uppercase italic"
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[0.95] tracking-tight mb-8 uppercase italic"
         >
           {{ heroContent.title }} <br />
           <span
@@ -40,7 +57,7 @@ const scrollToFormats = () => {
           >
         </h1>
 
-        <div class="flex flex-col md:flex-row items-center justify-center gap-8 mt-16">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-6 mt-8">
           <p
             class="max-w-xs text-slate-300 text-sm leading-relaxed text-left border-l-2 border-sky-500 pl-6"
           >
@@ -54,21 +71,28 @@ const scrollToFormats = () => {
             >
               <span class="inline-block skew-x-[10deg]">{{ heroContent.primaryCta }}</span>
             </a>
-            <button class="group flex items-center gap-4 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-full">
+            <button
+              class="group flex items-center gap-4 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-full"
+            >
               <div
                 class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-slate-900 transition-all"
                 aria-hidden="true"
               >
                 <Play class="w-5 h-5 fill-current" />
               </div>
-              <span class="text-[11px] font-bold uppercase tracking-[0.2em]">{{ heroContent.secondaryCta }}</span>
+              <span class="text-[11px] font-bold uppercase tracking-[0.2em]">{{
+                heroContent.secondaryCta
+              }}</span>
             </button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="absolute right-8 bottom-12 hidden xl:flex flex-col gap-8 items-end" aria-hidden="true">
+    <div
+      class="absolute right-8 bottom-12 hidden xl:flex flex-col gap-8 items-end"
+      aria-hidden="true"
+    >
       <div class="text-right">
         <div class="text-4xl font-black text-white leading-none">4000М</div>
         <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
@@ -95,11 +119,11 @@ const scrollToFormats = () => {
     animation: none;
     opacity: 1;
   }
-  
+
   .animate-pulse {
     animation: none;
   }
-  
+
   .animate-gradient {
     animation: none;
   }

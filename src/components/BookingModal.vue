@@ -2,10 +2,12 @@
 import { ref, watch } from 'vue'
 import { X, User, Phone, Calendar, Users, MessageSquare, Check, AlertCircle } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
+import { useEmail } from '@/composables/useEmail'
 import { bookingContent } from '@/content'
 import { PHONE_REGEX } from '@/constants'
 
 const { isOpen, selectedJumpType, closeModal } = useBookingModal()
+const { sendForm } = useEmail()
 
 const { title, subtitle, fields, jumpTypes, submit, submitting, privacy, success } = bookingContent
 
@@ -21,9 +23,15 @@ const isSubmitted = ref(false)
 const isSubmitting = ref(false)
 const phoneError = ref('')
 
+const formatPhone = (phone: string): string => {
+  const digits = phone.replace(/\D/g, '')
+  // Strip leading 7 or 8 (country/trunk code), keep last 10 digits
+  const number = digits.length > 10 ? digits.slice(-10) : digits
+  return '+7' + number
+}
+
 const validatePhone = (phone: string): boolean => {
-  const cleaned = phone.replace(/\D/g, '')
-  const formatted = '+7' + cleaned
+  const formatted = formatPhone(phone)
   if (!PHONE_REGEX.test(formatted)) {
     phoneError.value = 'Введите корректный номер телефона'
     return false
@@ -38,7 +46,13 @@ const handleSubmit = async () => {
 
   isSubmitting.value = true
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  await sendForm('booking', {
+    name: formData.value.name,
+    phone: formatPhone(formData.value.phone),
+    jumpType: formData.value.jumpType,
+    date: formData.value.date,
+    message: formData.value.message,
+  })
 
   isSubmitted.value = true
   isSubmitting.value = false

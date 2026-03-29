@@ -58,7 +58,7 @@ onMounted(() => {
       <section ref="sectionRef" class="pt-40 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
           <img
-            src="https://picsum.photos/seed/training-hero/1920/1080"
+            :src="trainingContent.image"
             alt="Обучение прыжкам с парашютом"
             class="w-full h-full object-cover"
             referrerPolicy="no-referrer"

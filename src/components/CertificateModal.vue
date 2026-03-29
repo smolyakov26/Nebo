@@ -2,10 +2,12 @@
 import { ref, watch } from 'vue'
 import { X, User, Phone, Gift, MessageSquare, Check, AlertCircle } from 'lucide-vue-next'
 import { useCertificateModal } from '@/composables/useCertificateModal'
+import { useEmail } from '@/composables/useEmail'
 import { certificateModalContent } from '@/content/sections/certificateModal'
 import { PHONE_REGEX } from '@/constants'
 
 const { isOpen, selectedDenomination, closeModal } = useCertificateModal()
+const { sendForm } = useEmail()
 
 const { title, subtitle, denominations, fields, submit, submitting, privacy, success } =
   certificateModalContent
@@ -24,9 +26,15 @@ const isSubmitted = ref(false)
 const isSubmitting = ref(false)
 const phoneError = ref('')
 
+const formatPhone = (phone: string): string => {
+  const digits = phone.replace(/\D/g, '')
+  // Strip leading 7 or 8 (country/trunk code), keep last 10 digits
+  const number = digits.length > 10 ? digits.slice(-10) : digits
+  return '+7' + number
+}
+
 const validatePhone = (phone: string): boolean => {
-  const cleaned = phone.replace(/\D/g, '')
-  const formatted = '+7' + cleaned
+  const formatted = formatPhone(phone)
   if (!PHONE_REGEX.test(formatted)) {
     phoneError.value = 'Введите корректный номер телефона'
     return false
@@ -50,7 +58,15 @@ const handleSubmit = async () => {
 
   isSubmitting.value = true
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  await sendForm('certificate', {
+    recipientName: formData.value.recipientName,
+    recipientLastName: formData.value.recipientLastName,
+    recipientPhone: formatPhone(formData.value.recipientPhone),
+    denomination: formData.value.denomination,
+    customAmount: formData.value.customAmount,
+    senderName: formData.value.senderName,
+    message: formData.value.message,
+  })
 
   isSubmitted.value = true
   isSubmitting.value = false

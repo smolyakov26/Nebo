@@ -14,13 +14,23 @@ const iconMap: Record<string, typeof MapPin> = {
   MapPin,
   Phone,
   Mail,
-  Clock
+  Clock,
 }
 
 const contacts = [
   { icon: 'MapPin', label: 'Адрес', value: contactsContent.address },
-  { icon: 'Phone', label: 'Телефон', value: contactsContent.phone, href: `tel:${contactsContent.phone.replace(/\s/g, '')}` },
-  { icon: 'Mail', label: 'Email', value: contactsContent.email, href: `mailto:${contactsContent.email}` },
+  {
+    icon: 'Phone',
+    label: 'Телефон',
+    value: contactsContent.phone,
+    href: `tel:${contactsContent.phone.replace(/\s/g, '')}`,
+  },
+  {
+    icon: 'Mail',
+    label: 'Email',
+    value: contactsContent.email,
+    href: `mailto:${contactsContent.email}`,
+  },
   { icon: 'Clock', label: 'Режим работы', value: contactsContent.hours },
 ]
 
@@ -34,7 +44,7 @@ onMounted(() => {
           }
         })
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     )
     observer.observe(sectionRef.value)
   }
@@ -54,27 +64,19 @@ onUnmounted(() => {
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="text-center mb-16">
-        <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
-          >{{ contactsContent.badge }}</span
-        >
+        <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block">{{
+          contactsContent.badge
+        }}</span>
         <h2 class="text-5xl md:text-6xl font-black text-white uppercase italic leading-none">
-          {{ contactsContent.title }} <span class="text-slate-600">{{ contactsContent.titleAccent }}</span>
+          {{ contactsContent.title }}
+          <span class="text-slate-600">{{ contactsContent.titleAccent }}</span>
         </h2>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div
-          :class="[
-            'space-y-6',
-            isVisible ? 'animate-slide-in-left' : 'opacity-0'
-          ]"
-        >
+        <div :class="['space-y-6', isVisible ? 'animate-slide-in-left' : 'opacity-0']">
           <div class="bg-slate-950/50 border border-white/10 rounded-2xl p-8 space-y-6">
-            <div
-              v-for="(contact, idx) in contacts"
-              :key="idx"
-              class="flex items-start gap-4"
-            >
+            <div v-for="(contact, idx) in contacts" :key="idx" class="flex items-start gap-4">
               <div
                 class="w-12 h-12 rounded-xl bg-sky-600/20 flex items-center justify-center shrink-0"
               >
@@ -121,17 +123,17 @@ onUnmounted(() => {
 
         <div
           :class="[
-            'rounded-2xl overflow-hidden border border-white/10 shadow-xl',
-            isVisible ? 'animate-slide-in-right' : 'opacity-0'
+            'rounded-2xl overflow-hidden border border-white/10 shadow-xl h-[400px] lg:h-[500px]',
+            isVisible ? 'animate-slide-in-right' : 'opacity-0',
           ]"
         >
           <iframe
             :src="contactsContent.mapUrl"
             width="100%"
-            height="400"
-            frameborder="0"
-            style="background: #1e293b;"
+            height="100%"
+            style="border: 0; background: #1e293b"
             title="Карта DZ EXTREME"
+            loading="lazy"
           />
         </div>
       </div>

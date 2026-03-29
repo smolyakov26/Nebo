@@ -5,6 +5,7 @@ import SoloPage from '@/views/SoloPage.vue'
 import SportPage from '@/views/SportPage.vue'
 import TrainingPage from '@/views/TrainingPage.vue'
 import CertificatePage from '@/views/CertificatePage.vue'
+import GalleryPage from '@/views/GalleryPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,33 +13,38 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      component: HomePage,
     },
     {
       path: '/tandem',
       name: 'tandem',
-      component: TandemPage
+      component: TandemPage,
     },
     {
       path: '/solo',
       name: 'solo',
-      component: SoloPage
+      component: SoloPage,
     },
     {
       path: '/sport',
       name: 'sport',
-      component: SportPage
+      component: SportPage,
     },
     {
       path: '/training',
       name: 'training',
-      component: TrainingPage
+      component: TrainingPage,
     },
     {
       path: '/certificate',
       name: 'certificate',
-      component: CertificatePage
-    }
+      component: CertificatePage,
+    },
+    {
+      path: '/gallery',
+      name: 'gallery',
+      component: GalleryPage,
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -46,7 +52,7 @@ const router = createRouter({
     } else {
       return { top: 0 }
     }
-  }
+  },
 })
 
 export default router

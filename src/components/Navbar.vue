@@ -35,12 +35,12 @@ const toggleMobileMenu = () => {
 
 const scrollToSection = (sectionId: string) => {
   closeMobileMenu()
-  
+
   if (!isHomePage.value) {
     window.location.href = `/#${sectionId}`
     return
   }
-  
+
   const element = document.getElementById(sectionId)
   if (element) {
     element.scrollIntoView({ behavior: 'smooth' })
@@ -55,6 +55,11 @@ const scrollToTop = () => {
     window.location.href = '/'
   }
 }
+
+const handleMobileBooking = () => {
+  openModal('tandem')
+  closeMobileMenu()
+}
 </script>
 
 <template>
@@ -63,7 +68,7 @@ const scrollToTop = () => {
       'fixed top-4 left-4 right-4 z-50 transition-all duration-700 rounded-2xl',
       isScrolled
         ? 'bg-slate-950/90 backdrop-blur-xl py-4 border border-white/10 shadow-lg'
-        : 'bg-slate-950/80 backdrop-blur-xl py-6 border border-white/5'
+        : 'bg-slate-950/80 backdrop-blur-xl py-6 border border-white/5',
     ]"
     role="navigation"
     aria-label="Основная навигация"
@@ -78,7 +83,7 @@ const scrollToTop = () => {
           <Zap class="w-6 h-6 fill-sky-500 text-sky-500" />
           <span>DZ EXTREME</span>
         </a>
-          <div
+        <div
           class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400"
         >
           <a
@@ -101,6 +106,13 @@ const scrollToTop = () => {
             class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
           >
             Сертификат
+          </RouterLink>
+          <RouterLink
+            to="/gallery"
+            @click="closeMobileMenu"
+            class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
+          >
+            Галерея
           </RouterLink>
           <a
             href="#about"
@@ -182,6 +194,14 @@ const scrollToTop = () => {
           >
             Сертификат
           </RouterLink>
+          <RouterLink
+            to="/gallery"
+            @click="closeMobileMenu"
+            class="hover:text-white cursor-pointer focus-visible:text-white text-left"
+            role="menuitem"
+          >
+            Галерея
+          </RouterLink>
           <a
             href="#about"
             @click.prevent="scrollToSection('about')"
@@ -192,7 +212,7 @@ const scrollToTop = () => {
           </a>
           <button
             v-if="isHomePage"
-            @click="openModal('tandem'); closeMobileMenu()"
+            @click="handleMobileBooking"
             class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             role="menuitem"
           >
