@@ -4,10 +4,10 @@ import { X, User, Phone, Gift, MessageSquare, Check, AlertCircle } from 'lucide-
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { useEmail } from '@/composables/useEmail'
 import { certificateModalContent } from '@/content/sections/certificateModal'
-import { PHONE_REGEX } from '@/constants'
+import { PHONE_REGEX, FORM_TYPES } from '@/constants'
 
 const { isOpen, selectedDenomination, closeModal } = useCertificateModal()
-const { sendForm } = useEmail()
+const { sendForm, error: submitError, clearError } = useEmail()
 
 const { title, subtitle, denominations, fields, submit, submitting, privacy, success } =
   certificateModalContent
@@ -57,8 +57,9 @@ const handleSubmit = async () => {
   if (!validatePhone(formData.value.recipientPhone)) return
 
   isSubmitting.value = true
+  clearError()
 
-  await sendForm('certificate', {
+  const success = await sendForm(FORM_TYPES.CERTIFICATE, {
     recipientName: formData.value.recipientName,
     recipientLastName: formData.value.recipientLastName,
     recipientPhone: formatPhone(formData.value.recipientPhone),
@@ -67,6 +68,11 @@ const handleSubmit = async () => {
     senderName: formData.value.senderName,
     message: formData.value.message,
   })
+
+  if (!success) {
+    isSubmitting.value = false
+    return
+  }
 
   isSubmitted.value = true
   isSubmitting.value = false
@@ -93,6 +99,7 @@ watch(isOpen, (val) => {
   if (!val) {
     isSubmitted.value = false
     isSubmitting.value = false
+    clearError()
   }
 })
 
@@ -329,6 +336,15 @@ const handleBackdropClick = (e: MouseEvent) => {
                     />
                   </div>
                 </div>
+              </div>
+
+              <div
+                v-if="submitError"
+                role="alert"
+                class="flex items-center gap-2 mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm"
+              >
+                <AlertCircle class="w-5 h-5 flex-shrink-0" />
+                <span>{{ submitError }}</span>
               </div>
 
               <button

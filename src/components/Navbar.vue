@@ -56,11 +56,6 @@ const scrollToTop = () => {
   }
 }
 
-const handleMobileBooking = () => {
-  openModal('tandem')
-  closeMobileMenu()
-}
-
 const handleMobileCallback = () => {
   openModal('callback')
   closeMobileMenu()
@@ -127,33 +122,27 @@ const handleMobileCallback = () => {
           >
             О нас
           </a>
-          <button
-            @click="handleMobileBooking"
-            class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-            role="menuitem"
-          >
-            <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
-          </button>
-          <button
-            @click="handleMobileCallback"
-            class="bg-sky-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-            role="menuitem"
-          >
-            <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
-          </button>
         </div>
       </div>
 
-      <button
-        class="lg:hidden min-w-11 min-h-11 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center justify-center"
-        @click="toggleMobileMenu"
-        :aria-expanded="mobileMenuOpen"
-        :aria-controls="mobileMenuId"
-        aria-label="Открыть меню"
-      >
-        <X v-if="mobileMenuOpen" class="w-6 h-6" />
-        <Menu v-else class="w-6 h-6" />
-      </button>
+      <div class="flex items-center gap-3">
+        <button
+          @click="handleMobileCallback"
+          class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+        >
+          ОБРАТНЫЙ ЗВОНОК
+        </button>
+        <button
+          class="lg:hidden min-w-11 min-h-11 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center justify-center"
+          @click="toggleMobileMenu"
+          :aria-expanded="mobileMenuOpen"
+          :aria-controls="mobileMenuId"
+          aria-label="Открыть меню"
+        >
+          <X v-if="mobileMenuOpen" class="w-6 h-6" />
+          <Menu v-else class="w-6 h-6" />
+        </button>
+      </div>
     </div>
 
     <Transition
@@ -216,18 +205,11 @@ const handleMobileCallback = () => {
             О нас
           </a>
           <button
-            @click="handleMobileBooking"
-            class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-            role="menuitem"
-          >
-            <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
-          </button>
-          <button
             @click="handleMobileCallback"
-            class="bg-sky-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            class="bg-sky-600 text-white py-4 text-center cursor-pointer hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-full"
             role="menuitem"
           >
-            <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
+            ОБРАТНЫЙ ЗВОНОК
           </button>
         </div>
       </div>

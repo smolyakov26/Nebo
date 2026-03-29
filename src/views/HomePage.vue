@@ -8,14 +8,13 @@ import AboutSection from '@/components/AboutSection.vue'
 import ContactsSection from '@/components/ContactsSection.vue'
 import Footer from '@/components/Footer.vue'
 import { Gift, Heart } from 'lucide-vue-next'
-import { PHONE } from '@/constants'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { homeCtaContent, certificateContent } from '@/content'
 
 const { openModal } = useBookingModal()
 const { openModal: openCertModal } = useCertificateModal()
-const { badge, title, titleAccent, primaryCta, phone } = homeCtaContent
+const { badge, title, titleAccent, primaryCta } = homeCtaContent
 const { badge: certBadge, title: certTitle, description: certDescription, cta } = certificateContent
 </script>
 
@@ -54,10 +53,10 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
               </p>
               <button
                 @click="openCertModal('18000')"
-                class="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all skew-x-[-10deg] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600"
+                class="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600"
               >
                 <Gift class="w-5 h-5" />
-                <span class="inline-block skew-x-[10deg]">{{ cta.primary }}</span>
+                {{ cta.primary }}
               </button>
             </div>
             <div class="grid grid-cols-2 gap-6">
@@ -106,16 +105,16 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
           <div class="flex flex-col sm:flex-row justify-center gap-8">
             <button
               @click="openModal('tandem')"
-              class="bg-white text-slate-900 px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-slate-900 hover:text-white transition-all skew-x-[-10deg] shadow-xl inline-block cursor-pointer focus-visible:bg-slate-900 focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sky-600"
+              class="bg-white text-slate-900 px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-slate-900 hover:text-white transition-all rounded-full shadow-xl inline-block cursor-pointer focus-visible:bg-slate-900 focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sky-600"
             >
-              <span class="inline-block skew-x-[10deg]">{{ primaryCta }}</span>
+              {{ primaryCta }}
             </button>
-            <a
-              :href="PHONE.link"
-              class="border-2 border-white px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-white hover:text-sky-600 transition-all skew-x-[-10deg] inline-block cursor-pointer focus-visible:bg-white focus-visible:text-sky-600"
+            <button
+              @click="openModal('callback')"
+              class="border-2 border-white px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-white hover:text-sky-600 transition-all rounded-full inline-block cursor-pointer focus-visible:bg-white focus-visible:text-sky-600"
             >
-              <span class="inline-block skew-x-[10deg]">{{ phone }}</span>
-            </a>
+              Обратный звонок
+            </button>
           </div>
         </div>
       </section>

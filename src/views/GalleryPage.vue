@@ -35,15 +35,15 @@ import GallerySection from '@/components/GallerySection.vue'
           <div class="flex flex-col sm:flex-row justify-center gap-6">
             <a
               href="/tandem"
-              class="bg-sky-600 hover:bg-sky-500 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] inline-block cursor-pointer"
+              class="bg-sky-600 hover:bg-sky-500 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all rounded-full inline-block cursor-pointer"
             >
-              <span class="inline-block skew-x-[10deg]">Тандем-прыжок</span>
+              Тандем-прыжок
             </a>
             <a
               href="/training"
-              class="border-2 border-white hover:bg-white hover:text-slate-900 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] inline-block cursor-pointer"
+              class="border-2 border-white hover:bg-white hover:text-slate-900 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all rounded-full inline-block cursor-pointer"
             >
-              <span class="inline-block skew-x-[10deg]">Обучение</span>
+              Обучение
             </a>
           </div>
         </div>

@@ -49,7 +49,11 @@ const filteredMedia = computed(() => {
 
 const featuredItem = computed(() => filteredMedia.value[0])
 const gridItems = computed(() => filteredMedia.value.slice(1))
-const currentModalItem = computed(() => filteredMedia.value[modalIndex.value])
+const currentModalItem = computed(() => {
+  const idx = modalIndex.value
+  if (idx < 0 || idx >= filteredMedia.value.length) return null
+  return filteredMedia.value[idx]
+})
 </script>
 
 <template>
@@ -95,7 +99,7 @@ const currentModalItem = computed(() => filteredMedia.value[modalIndex.value])
         <!-- Large Featured Item -->
         <div v-if="featuredItem" class="col-span-1 lg:col-span-2 group">
           <div
-            class="relative aspect-w-16 aspect-h-9 w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
+            class="relative aspect-video w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
             @click="openModal(0)"
           >
             <img
@@ -130,7 +134,7 @@ const currentModalItem = computed(() => filteredMedia.value[modalIndex.value])
         <!-- Regular Grid Items -->
         <div v-for="(item, index) in gridItems" :key="index" class="group">
           <div
-            class="relative aspect-w-16 aspect-h-9 w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
+            class="relative aspect-video w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
             @click="openModal(index + 1)"
           >
             <img
@@ -167,7 +171,7 @@ const currentModalItem = computed(() => filteredMedia.value[modalIndex.value])
 
   <!-- Modal -->
   <div
-    v-if="modalIndex >= 0 && filteredMedia[modalIndex]"
+    v-if="currentModalItem"
     class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 backdrop-blur-sm"
     @click="closeModal"
   >
@@ -179,7 +183,7 @@ const currentModalItem = computed(() => filteredMedia.value[modalIndex.value])
         <X class="w-5 h-5 text-white" />
       </button>
       <img
-        v-if="currentModalItem?.type === 'image'"
+        v-if="currentModalItem.type === 'image'"
         :src="currentModalItem.src"
         :alt="currentModalItem.title"
         class="w-full h-full max-h-[85vh] object-contain rounded-xl"
@@ -188,8 +192,8 @@ const currentModalItem = computed(() => filteredMedia.value[modalIndex.value])
         <Video class="w-12 h-12 text-sky-400" />
       </div>
       <div class="text-center mt-4">
-        <h3 class="text-white text-lg font-bold">{{ currentModalItem?.title }}</h3>
-        <p class="text-slate-400 text-sm">{{ currentModalItem?.description }}</p>
+        <h3 class="text-white text-lg font-bold">{{ currentModalItem.title }}</h3>
+        <p class="text-slate-400 text-sm">{{ currentModalItem.description }}</p>
       </div>
     </div>
   </div>

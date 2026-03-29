@@ -62,9 +62,9 @@ const handleImageError = () => {
         <a
           href="#formats"
           @click.prevent="scrollToFormats"
-          class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer inline-block focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 text-[11px] font-black uppercase tracking-widest transition-all rounded-full cursor-pointer inline-block focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
-          <span class="inline-block skew-x-[10deg]">{{ heroContent.primaryCta }}</span>
+          {{ heroContent.primaryCta }}
         </a>
       </div>
     </div>

@@ -4,10 +4,10 @@ import { X, User, Phone, Calendar, Users, MessageSquare, Check, AlertCircle } fr
 import { useBookingModal } from '@/composables/useBookingModal'
 import { useEmail } from '@/composables/useEmail'
 import { bookingContent } from '@/content'
-import { PHONE_REGEX } from '@/constants'
+import { PHONE_REGEX, JUMP_TYPES, type JumpType } from '@/constants'
 
 const { isOpen, selectedJumpType, closeModal } = useBookingModal()
-const { sendForm } = useEmail()
+const { sendForm, error: submitError, clearError } = useEmail()
 
 const {
   title,
@@ -22,13 +22,19 @@ const {
   success,
 } = bookingContent
 
-const isCallbackMode = computed(() => selectedJumpType.value === 'callback')
+const isCallbackMode = computed(() => selectedJumpType.value === JUMP_TYPES.CALLBACK)
 
-const formData = ref({
+const formData = ref<{
+  name: string
+  phone: string
+  date: string
+  jumpType: JumpType
+  message: string
+}>({
   name: '',
   phone: '',
   date: '',
-  jumpType: 'tandem',
+  jumpType: JUMP_TYPES.TANDEM,
   message: '',
 })
 
@@ -58,8 +64,9 @@ const handleSubmit = async () => {
   if (!validatePhone(formData.value.phone)) return
 
   isSubmitting.value = true
+  clearError()
 
-  await sendForm('booking', {
+  const success = await sendForm('booking', {
     name: formData.value.name,
     phone: formatPhone(formData.value.phone),
     jumpType: formData.value.jumpType,
@@ -67,26 +74,30 @@ const handleSubmit = async () => {
     message: formData.value.message,
   })
 
+  if (!success) {
+    isSubmitting.value = false
+    return
+  }
+
   isSubmitted.value = true
   isSubmitting.value = false
 
   setTimeout(() => {
     closeModal()
     isSubmitted.value = false
-    formData.value = {
-      name: '',
-      phone: '',
-      date: '',
-      jumpType: 'tandem',
-      message: '',
-    }
-  }, 2000)
+    formData.value.name = ''
+    formData.value.phone = ''
+    formData.value.date = ''
+    formData.value.jumpType = JUMP_TYPES.TANDEM
+    formData.value.message = ''
+  }, 3000)
 }
 
 watch(isOpen, (val) => {
   if (!val) {
     isSubmitted.value = false
     isSubmitting.value = false
+    clearError()
   } else {
     formData.value.jumpType = selectedJumpType.value
   }
@@ -277,6 +288,15 @@ const handleBackdropClick = (e: MouseEvent) => {
                     />
                   </div>
                 </div>
+              </div>
+
+              <div
+                v-if="submitError"
+                role="alert"
+                class="flex items-center gap-2 mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm"
+              >
+                <AlertCircle class="w-5 h-5 flex-shrink-0" />
+                <span>{{ submitError }}</span>
               </div>
 
               <button

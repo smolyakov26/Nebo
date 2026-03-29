@@ -82,9 +82,9 @@ onMounted(() => {
 
             <button
               @click="openModal('18000')"
-              class="inline-block bg-rose-600 hover:bg-rose-500 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+              class="inline-block bg-rose-600 hover:bg-rose-500 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
-              <span class="inline-block skew-x-[10deg]">{{ cta.primary }}</span>
+              {{ cta.primary }}
             </button>
           </div>
         </div>
@@ -178,15 +178,15 @@ onMounted(() => {
           <div class="flex flex-col sm:flex-row justify-center gap-6">
             <button
               @click="openModal('18000')"
-              class="bg-white text-slate-900 px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all skew-x-[-10deg] cursor-pointer inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600"
+              class="bg-white text-slate-900 px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all rounded-full cursor-pointer inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600"
             >
-              <span class="inline-block skew-x-[10deg]">{{ cta.primary }}</span>
+              {{ cta.primary }}
             </button>
             <a
               :href="PHONE.link"
-              class="border-2 border-white px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-rose-600 transition-all skew-x-[-10deg] cursor-pointer inline-block"
+              class="border-2 border-white px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-rose-600 transition-all rounded-full cursor-pointer inline-block"
             >
-              <span class="inline-block skew-x-[10deg]">{{ cta.secondary }}</span>
+              {{ cta.secondary }}
             </a>
           </div>
         </div>

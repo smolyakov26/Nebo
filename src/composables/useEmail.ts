@@ -1,4 +1,5 @@
-type FormType = 'booking' | 'certificate'
+import { ref } from 'vue'
+import type { FormType } from '@/constants'
 
 interface EmailResponse {
   success: boolean
@@ -7,37 +8,43 @@ interface EmailResponse {
 
 export function useEmail() {
   const GAS_URL = import.meta.env.VITE_GAS_URL as string | undefined
+  const error = ref<string | null>(null)
 
   const sendForm = async (formType: FormType, data: Record<string, string>): Promise<boolean> => {
+    error.value = null
+
     if (!GAS_URL) {
       console.warn('VITE_GAS_URL not configured — form submission skipped')
+      error.value = 'Форма временно недоступна. Попробуйте позвонить нам.'
       return false
     }
 
     try {
       const response = await fetch(GAS_URL, {
         method: 'POST',
-        mode: 'no-cors', // Google Apps Script requires no-cors
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ formType, ...data }),
       })
 
-      // no-cors mode returns opaque response, we can't read it
-      // If fetch didn't throw, assume success
       if (response.type === 'opaque') {
         return true
       }
 
-      // If we can read the response (shouldn't happen with no-cors)
       const result = (await response.json()) as EmailResponse
       return result.success
-    } catch (error) {
-      console.error('Form submission failed:', error)
+    } catch (err) {
+      console.error('Form submission failed:', err)
+      error.value = 'Ошибка отправки. Пожалуйста, попробуйте ещё раз или позвоните нам.'
       return false
     }
   }
 
-  return { sendForm }
+  const clearError = () => {
+    error.value = null
+  }
+
+  return { sendForm, error, clearError }
 }
