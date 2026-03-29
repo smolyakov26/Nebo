@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { X, User, Phone, Calendar, Users, MessageSquare, Check, AlertCircle } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { useEmail } from '@/composables/useEmail'
@@ -9,7 +9,20 @@ import { PHONE_REGEX } from '@/constants'
 const { isOpen, selectedJumpType, closeModal } = useBookingModal()
 const { sendForm } = useEmail()
 
-const { title, subtitle, fields, jumpTypes, submit, submitting, privacy, success } = bookingContent
+const {
+  title,
+  subtitle,
+  callbackTitle,
+  callbackSubtitle,
+  fields,
+  jumpTypes,
+  submit,
+  submitting,
+  privacy,
+  success,
+} = bookingContent
+
+const isCallbackMode = computed(() => selectedJumpType.value === 'callback')
 
 const formData = ref({
   name: '',
@@ -138,9 +151,11 @@ const handleBackdropClick = (e: MouseEvent) => {
 
             <form v-else @submit.prevent="handleSubmit" class="p-8">
               <h2 id="booking-title" class="text-3xl font-black text-white mb-2 uppercase italic">
-                {{ title }}
+                {{ isCallbackMode ? callbackTitle : title }}
               </h2>
-              <p class="text-slate-400 text-sm mb-8">{{ subtitle }}</p>
+              <p class="text-slate-400 text-sm mb-8">
+                {{ isCallbackMode ? callbackSubtitle : subtitle }}
+              </p>
 
               <div class="space-y-6">
                 <div>
@@ -201,7 +216,7 @@ const handleBackdropClick = (e: MouseEvent) => {
                   </div>
                 </div>
 
-                <div>
+                <div v-if="!isCallbackMode">
                   <label
                     for="jumpType"
                     class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
@@ -224,7 +239,7 @@ const handleBackdropClick = (e: MouseEvent) => {
                   </div>
                 </div>
 
-                <div>
+                <div v-if="!isCallbackMode">
                   <label
                     for="date"
                     class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
@@ -244,7 +259,7 @@ const handleBackdropClick = (e: MouseEvent) => {
                   </div>
                 </div>
 
-                <div>
+                <div v-if="!isCallbackMode">
                   <label
                     for="message"
                     class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"

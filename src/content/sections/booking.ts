@@ -1,6 +1,8 @@
 export const bookingContent = {
   title: 'Забронировать',
   subtitle: 'Оставьте заявку и мы перезвоним вам',
+  callbackTitle: 'Обратный звонок',
+  callbackSubtitle: 'Оставьте номер телефона и мы вам перезвоним',
   fields: {
     name: 'Ваше имя',
     namePlaceholder: 'Александр',

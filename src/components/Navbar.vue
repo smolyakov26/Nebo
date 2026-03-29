@@ -117,28 +117,47 @@ const handleMobileBooking = () => {
             Галерея
           </RouterLink>
           <a
-            href="#about"
             @click.prevent="scrollToSection('about')"
-            class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
+            class="hover:text-white cursor-pointer focus-visible:text-white text-left"
+            role="menuitem"
           >
             О нас
           </a>
+          <button
+            @click="
+              openModal('tandem')
+              closeMobileMenu()
+            "
+            class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            role="menuitem"
+          >
+            <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
+          </button>
+          <button
+            @click="
+              openModal('callback')
+              closeMobileMenu()
+            "
+            class="bg-sky-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            role="menuitem"
+          >
+            <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
+          </button>
         </div>
       </div>
 
-      <div class="flex items-center gap-6">
+      <div class="flex items-center gap-4">
         <a
-          v-if="isHomePage"
           @click.prevent="openModal('tandem')"
           href="#"
-          class="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          class="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
         </a>
         <a
-          v-else
-          :href="PHONE.link"
-          class="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          @click.prevent="openModal('callback')"
+          href="#"
+          class="hidden sm:block bg-sky-600 hover:bg-sky-500 text-white px-6 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
         </a>
@@ -220,7 +239,7 @@ const handleMobileBooking = () => {
             class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             role="menuitem"
           >
-            <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
+            <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
           </button>
           <a
             v-else
