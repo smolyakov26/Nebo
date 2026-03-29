@@ -69,19 +69,6 @@ const handleImageError = () => {
             >
               <span class="inline-block skew-x-[10deg]">{{ heroContent.primaryCta }}</span>
             </a>
-            <button
-              class="group flex items-center gap-4 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-full"
-            >
-              <div
-                class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-slate-900 transition-all"
-                aria-hidden="true"
-              >
-                <Play class="w-5 h-5 fill-current" />
-              </div>
-              <span class="text-[11px] font-bold uppercase tracking-[0.2em]">{{
-                heroContent.secondaryCta
-              }}</span>
-            </button>
           </div>
         </div>
       </div>
