@@ -144,32 +144,16 @@ const handleMobileCallback = () => {
         </div>
       </div>
 
-      <div class="flex items-center gap-4">
-        <a
-          @click.prevent="openModal('tandem')"
-          href="#"
-          class="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-        >
-          <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
-        </a>
-        <a
-          @click.prevent="openModal('callback')"
-          href="#"
-          class="hidden sm:block bg-sky-600 hover:bg-sky-500 text-white px-6 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-        >
-          <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
-        </a>
-        <button
-          class="lg:hidden min-w-11 min-h-11 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center justify-center"
-          @click="toggleMobileMenu"
-          :aria-expanded="mobileMenuOpen"
-          :aria-controls="mobileMenuId"
-          aria-label="Открыть меню"
-        >
-          <X v-if="mobileMenuOpen" class="w-6 h-6" />
-          <Menu v-else class="w-6 h-6" />
-        </button>
-      </div>
+      <button
+        class="lg:hidden min-w-11 min-h-11 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center justify-center"
+        @click="toggleMobileMenu"
+        :aria-expanded="mobileMenuOpen"
+        :aria-controls="mobileMenuId"
+        aria-label="Открыть меню"
+      >
+        <X v-if="mobileMenuOpen" class="w-6 h-6" />
+        <Menu v-else class="w-6 h-6" />
+      </button>
     </div>
 
     <Transition
