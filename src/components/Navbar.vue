@@ -138,9 +138,9 @@ const handleMobileBooking = () => {
         <a
           v-else
           :href="PHONE.link"
-          class="hidden sm:block text-white text-[11px] font-black uppercase tracking-widest hover:text-sky-400 transition-colors cursor-pointer"
+          class="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
-          {{ PHONE.display }}
+          <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
         </a>
         <button
           class="lg:hidden min-w-11 min-h-11 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center justify-center"
