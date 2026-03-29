@@ -132,7 +132,7 @@ onUnmounted(() => {
             width="100%"
             height="100%"
             style="border: 0; background: #1e293b"
-            title="Карта NEBO-KMV"
+            title="Карта НЕБО КАВКАЗ"
             loading="lazy"
           />
         </div>

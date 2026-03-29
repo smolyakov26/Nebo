@@ -9,7 +9,7 @@ export const aboutContent = {
   yearsExperience: '25+',
   yearsLabel: 'лет опыта',
   image: '/images/home/training.jpg',
-  imageAlt: 'Команда NEBO-KMV',
+  imageAlt: 'Команда НЕБО КАВКАЗ',
   stats: [
     { icon: 'Users', value: '5 000+', label: 'Прыжков в год' },
     { icon: 'Shield', value: '10000+', label: 'Довольных гостей' },

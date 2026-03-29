@@ -10,7 +10,7 @@ export const SHARED = {
     { name: 'TG', url: 'https://t.me' },
     { name: 'YT', url: 'https://youtube.com' },
   ],
-  copyright: '© 2026 NEBO-КАВКАЗ',
+  copyright: '© 2026 НЕБО КАВКАЗ',
 }
 
 export const CONTACTS = {
