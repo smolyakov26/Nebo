@@ -4,13 +4,23 @@ import { heroContent } from '@/content/sections/hero'
 
 const imageLoaded = ref(true)
 
-const heroImageWebp = computed(() => {
-  // Convert /images/home/hero-sky.jpg to /images-optimized/home/hero-sky.webp
-  return heroContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
+const heroImageBase = computed(() => {
+  // /images/home/hero-sky.jpg -> /images-cropped/home/hero-sky
+  return heroContent.image.replace('/images/', '/images-cropped/').replace('.jpg', '')
 })
 
-const heroImageJpeg = computed(() => {
-  return heroContent.image.replace('/images/', '/images-optimized/')
+const heroImageWebpSrcset = computed(() => {
+  const base = heroImageBase.value
+  return `${base}-sm.webp 400w, ${base}-md.webp 800w, ${base}-lg.webp 1280w, ${base}-xl.webp 1920w`
+})
+
+const heroImageJpegSrcset = computed(() => {
+  const base = heroImageBase.value
+  return `${base}-sm.jpg 400w, ${base}-md.jpg 800w, ${base}-lg.jpg 1280w, ${base}-xl.jpg 1920w`
+})
+
+const heroImageFallback = computed(() => {
+  return `${heroImageBase.value}-original.jpg`
 })
 
 const scrollToFormats = () => {
@@ -36,13 +46,15 @@ const handleImageError = () => {
     <!-- Image background -->
     <div v-else class="absolute inset-0 z-0" aria-hidden="true">
       <picture>
-        <source :srcset="heroImageWebp" type="image/webp" />
+        <source :srcset="heroImageWebpSrcset" type="image/webp" sizes="100vw" />
         <img
-          :src="heroImageJpeg"
+          :src="heroImageFallback"
+          :srcset="heroImageJpegSrcset"
           alt=""
           class="w-full h-full object-cover"
           referrerPolicy="no-referrer"
           @error="handleImageError"
+          sizes="100vw"
         />
       </picture>
       <!-- Editorial Gradient Overlay -->

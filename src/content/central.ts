@@ -1,8 +1,8 @@
 export const SHARED = {
   phone: '+7 (928) 630-91-44',
   phoneHref: 'tel:+79286309144',
-  email: 'info@nebo-kmv.ru',
-  emailHref: 'mailto:info@nebo-kmv.ru',
+  email: 'info@nebo-kavkaz.ru',
+  emailHref: 'mailto:info@nebo-kavkaz.ru',
   address: 'Ставропольский край, г. Ессентуки, Суворовское шоссе, 1',
   hours: 'Среда — Воскресенье, с 09:00 до 18:00',
   socials: [
@@ -10,7 +10,7 @@ export const SHARED = {
     { name: 'TG', url: 'https://t.me' },
     { name: 'YT', url: 'https://youtube.com' },
   ],
-  copyright: '© 2026 NEBO-KMV',
+  copyright: '© 2026 NEBO-КАВКАЗ',
 }
 
 export const CONTACTS = {
@@ -27,7 +27,7 @@ export const CONTACTS = {
 }
 
 export const FOOTER = {
-  logo: 'NEBO-KMV',
+  logo: 'NEBO-КАВКАЗ',
   description: '',
   navigation: [
     { label: 'Прыжки в тандеме', href: '#formats' },
