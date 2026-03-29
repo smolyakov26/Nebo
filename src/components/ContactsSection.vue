@@ -110,8 +110,9 @@ onUnmounted(() => {
               :key="social.name"
               :href="social.url"
               target="_blank"
-              rel="noopener"
-              class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky-600 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+              rel="noopener noreferrer"
+              :aria-label="social.name"
+              class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky-600 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             >
               <span class="text-sm font-bold text-white">{{ social.name }}</span>
             </a>

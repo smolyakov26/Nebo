@@ -28,7 +28,8 @@ const iconMap: Record<string, typeof Award> = {
             <div
               v-for="(feature, idx) in experienceContent.features"
               :key="idx"
-              class="flex gap-4 sm:gap-6 p-4 sm:p-6 bg-slate-800/50 border border-white/5 shadow-sm hover:border-sky-500/50 transition-colors cursor-pointer"
+              tabindex="0"
+              class="flex gap-4 sm:gap-6 p-4 sm:p-6 bg-slate-800/50 border border-white/5 shadow-sm hover:border-sky-500/50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg"
             >
               <div
                 class="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-sky-500/20 flex items-center justify-center shrink-0"
@@ -79,3 +80,15 @@ const iconMap: Record<string, typeof Award> = {
     </div>
   </section>
 </template>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  img {
+    transition: none;
+  }
+  
+  .group:hover .group-hover\:translate-x-2 {
+    transform: translateX(0);
+  }
+}
+</style>

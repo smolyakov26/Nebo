@@ -1,43 +1,40 @@
 # Agent Instructions - DZ EXTREME Vue.js Project
 
 ## Project Overview
-This is a Vue 3 + TypeScript + Tailwind CSS project for a skydiving/parachuting company website (DZ EXTREME). The project uses Vite as the build tool, Vue Router for navigation, and follows Vue 3 Composition API patterns.
 
-## Build Commands
+Vue 3 + TypeScript + Tailwind CSS v4 project for a skydiving/parachuting company (DZ EXTREME).
+Uses Vite build tool, Vue Router, Pinia for state, and Vue 3 Composition API with `<script setup>`.
+
+## Build & Quality Commands
 
 ```bash
-# Development
-npm run dev          # Start dev server
-
-# Production
-npm run build        # Build for production (includes type-check)
-npm run preview      # Preview production build
-
-# Code Quality
-npm run lint         # Run all linters (oxlint + eslint)
-npm run lint:oxlint  # Run oxlint only
-npm run lint:eslint  # Run eslint only
-npm run format       # Format code with Prettier
-npm run type-check   # Run TypeScript type checking
+npm run dev            # Start dev server
+npm run build          # Build for production (runs type-check in parallel)
+npm run preview        # Preview production build
+npm run type-check     # TypeScript type checking (vue-tsc --build)
+npm run lint           # Run all linters sequentially (oxlint then eslint, both with --fix)
+npm run lint:oxlint    # Run oxlint only (with --fix)
+npm run lint:eslint    # Run eslint only (with --fix --cache)
+npm run format         # Format code with Prettier
 ```
 
-## Code Style Guidelines
+**Verification workflow:** After making changes, run `npm run lint && npm run type-check` to verify correctness.
 
-### Vue SFC (Single File Components)
-- Use `<script setup lang="ts">` with TypeScript for all components
-- Components should be multi-word names (e.g., `Navbar.vue` not `Nav.vue`)
-- Use `defineProps` and `defineEmits` for prop/emit type declarations
-- Import components using `@/` path alias (configured in vite.config.ts)
+## Code Style
 
-### TypeScript Conventions
-- Use explicit types for props, emits, and reactive variables
-- Prefer `interface` for object types, `type` for unions/primitives
-- Use Vue's built-in types from `vue` package when appropriate
+### Formatting (`.prettierrc.json`, `.editorconfig`)
 
-### Component Structure
+- No semicolons (`semi: false`)
+- Single quotes (`singleQuote: true`)
+- 2-space indentation, max line length 100 chars
+- UTF-8, LF line endings, trailing whitespace trimmed
+- Files to lint: `**/*.{vue,ts,mts,tsx}`
+
+### Vue SFC Structure
+
 ```vue
 <script setup lang="ts">
-// 1. Imports (Vue, libraries, types)
+// 1. Imports (Vue, libraries, components, types)
 // 2. Props/Emits definitions
 // 3. Composables and reactive state
 // 4. Computed properties
@@ -46,107 +43,109 @@ npm run type-check   # Run TypeScript type checking
 </script>
 
 <template>
-<!-- Template content -->
+  <!-- Template content -->
 </template>
 
 <style scoped>
-/* Scoped component styles */
+/* Scoped styles only when needed */
 </style>
 ```
 
+Always use `<script setup lang="ts">`. The `vue/multi-word-component-names` rule is disabled.
+
+### TypeScript
+
+- Explicit types for props, emits, reactive variables
+- `interface` for object types, `type` for unions/primitives
+- `noUncheckedIndexedAccess` is enabled in tsconfig — handle potential undefined from array/object access
+- Named imports from Vue (`import { ref } from 'vue'`), never default imports
+
+### Imports — Order & Aliases
+
+1. Vue core
+2. Third-party libraries
+3. Project components (`@/components/...`)
+4. Types, utils, composables, data
+
+Use `@/` alias for `src/` (configured in `vite.config.ts`).
+
 ### Naming Conventions
-- **Components**: PascalCase (e.g., `Navbar.vue`, `FooterSection.vue`)
-- **Pages/Views**: PascalCase ending with `Page` (e.g., `HomePage.vue`, `TandemPage.vue`)
-- **Props**: camelCase in JS, kebab-case in templates
-- **Constants**: SCREAMING_SNAKE_CASE for truly constant values
-- **Composables**: `use` prefix (e.g., `useAuth`, `useFetch`)
-- **CSS classes**: kebab-case with Tailwind utilities
+
+| Item        | Convention                               | Example                          |
+| ----------- | ---------------------------------------- | -------------------------------- |
+| Components  | PascalCase                               | `Navbar.vue`, `BookingModal.vue` |
+| Pages/Views | PascalCase + `Page` suffix               | `HomePage.vue`, `TandemPage.vue` |
+| Composables | `use` prefix, camelCase                  | `useBookingModal.ts`             |
+| Props       | camelCase in JS, kebab-case in templates | `isActive` → `:is-active`        |
+| Constants   | SCREAMING_SNAKE_CASE                     | `MAX_JUMPS`                      |
+| CSS classes | kebab-case + Tailwind utilities          | `btn-primary`                    |
 
 ### Styling
-- Use Tailwind CSS utility classes for all styling
-- Use `@apply` sparingly - prefer direct Tailwind classes
-- Custom animations should be defined in component `<style scoped>` or main CSS
-- Use `ref` from Vue for reactive state, avoid `reactive` for primitives
 
-### Imports
-- Group imports: 1) Vue, 2) Libraries, 3) Components, 4) Types/Utils
-- Use path aliases: `@/` for `/src`
-- Avoid default imports from Vue (use named imports)
+- Tailwind CSS utility classes for all styling; avoid `@apply` unless truly necessary
+- Custom animations in component `<style scoped>` or `src/assets/main.css`
+- Tailwind v4: CSS-first config via `@theme` in CSS, no `tailwind.config.js`
+- Use `ref` for primitives, prefer `ref` over `reactive` for objects too
 
 ### Error Handling
-- Use try/catch with async operations
-- Handle edge cases in components (loading, error, empty states)
-- Use TypeScript null checks for optional values
 
-### Tailwind CSS v4
-- Uses CSS-first configuration (no tailwind.config.js by default)
-- Theme customization via `@theme` in CSS
-- Custom utilities with `@apply` in `@layer base`
+- `try/catch` around all async operations
+- Handle loading, error, and empty states in components
+- TypeScript null checks for optional values
 
 ## Project Structure
+
 ```
 src/
-├── assets/
-│   └── main.css          # Global styles + Tailwind imports
-├── components/
-│   ├── Navbar.vue
-│   ├── Hero.vue
-│   ├── QuoteSection.vue
-│   ├── FormatsSection.vue
-│   ├── ExperienceSection.vue
-│   └── Footer.vue
-├── views/
-│   ├── HomePage.vue      # Landing page
-│   ├── TandemPage.vue    # Tandem jump details
-│   ├── SoloPage.vue      # Solo jump details
-│   └── SportPage.vue     # Sport jump details
-├── router/
-│   └── index.ts          # Vue Router configuration
-├── data/
-│   └── formats.ts        # Static data/constants
-├── App.vue               # Root component with router-view
-└── main.ts              # App entry point
+├── assets/main.css          # Global styles + Tailwind
+├── components/              # Reusable UI components
+│   ├── Navbar.vue, Hero.vue, Footer.vue
+│   ├── BookingModal.vue, CertificateModal.vue
+│   ├── AboutSection.vue, ContactsSection.vue
+│   ├── ExperienceSection.vue, FormatsSection.vue
+│   └── QuoteSection.vue
+├── views/                   # Route-level pages
+│   ├── HomePage.vue, TandemPage.vue, SoloPage.vue
+│   ├── SportPage.vue, TrainingPage.vue
+│   └── CertificatePage.vue
+├── composables/             # Reusable composition functions
+│   ├── useBookingModal.ts
+│   └── useCertificateModal.ts
+├── content/                 # Page/section content data
+├── constants/index.ts       # App-wide constants
+├── data/formats.ts          # Static data
+├── router/index.ts          # Vue Router config
+├── App.vue                  # Root component
+└── main.ts                  # Entry point
 ```
 
 ## Routes
-| Path | Component | Description |
-|------|-----------|-------------|
-| `/` | HomePage | Landing page |
-| `/tandem` | TandemPage | Tandem jump info |
-| `/solo` | SoloPage | Solo jump info |
-| `/sport` | SportPage | Sport jump info |
 
-## Common Tasks
+| Path           | Component       |
+| -------------- | --------------- |
+| `/`            | HomePage        |
+| `/tandem`      | TandemPage      |
+| `/solo`        | SoloPage        |
+| `/sport`       | SportPage       |
+| `/training`    | TrainingPage    |
+| `/certificate` | CertificatePage |
 
-### Adding a New Page
-1. Create page in `src/views/` (e.g., `NewPage.vue`)
-2. Add route in `src/router/index.ts`
-3. Use `<script setup lang="ts">` with TypeScript
-4. Include Navbar and Footer components
-5. Add link in FormatsSection or Navbar
+## Key Dependencies
 
-### Adding a New Component
-1. Create component in `src/components/`
-2. Use `<script setup lang="ts">` with TypeScript
-3. Import in parent component or page
-4. Add scoped styles if needed
+- **UI/Icons:** `lucide-vue-next` — import icons as `import { IconName } from 'lucide-vue-next'`
+- **Animations:** `@vueuse/motion` for scroll/entrance animations
+- **State:** `pinia` for global state management
 
-### Adding New Dependencies
-```bash
-npm install <package>      # Production dependency
-npm install -D <package>   # Dev dependency
-```
+## Adding New Features
 
-### Adding Icons
-Use lucide-vue-next:
-```typescript
-import { IconName } from 'lucide-vue-next'
-```
+**New page:** Create `src/views/XxxPage.vue`, add route in `src/router/index.ts`, include `Navbar` and `Footer`.
 
-## File Patterns
-- Pages/Views: `src/views/*Page.vue`
-- Components: `src/components/*.vue`
-- Composables: `src/composables/*.ts`
-- Types: `src/types/*.ts` or inline in files
-- Styles: `src/assets/*.css`
-- Router: `src/router/index.ts`
+**New component:** Create in `src/components/`, use `<script setup lang="ts">`, import with `@/` alias.
+
+**New dependency:** `npm install <pkg>` (prod) or `npm install -D <pkg>` (dev).
+
+## Environment
+
+- Node.js: `^20.19.0 || >=22.12.0`
+- No test framework configured; verify changes with `npm run lint && npm run type-check`
+- No Cursor rules (`.cursor/rules/`) or Copilot rules (`.github/copilot-instructions.md`) present

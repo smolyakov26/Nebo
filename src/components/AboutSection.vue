@@ -40,7 +40,7 @@ onUnmounted(() => {
 
 <template>
   <section id="about" ref="sectionRef" class="py-32 bg-slate-950 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none" />
+    <div class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none" aria-hidden="true" />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

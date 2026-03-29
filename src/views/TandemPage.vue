@@ -4,10 +4,25 @@ import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import { ArrowLeft, Clock, Ruler, Wind, ShieldCheck, Users } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
+import { PHONE } from '@/constants'
 import { tandemContent } from '@/content'
 
 const { openModal } = useBookingModal()
-const { badge, title, titleAccent, description, price, priceNote, features, schedule, requirements, groupTitle, groupDescription, cta, ctaSection } = tandemContent
+const {
+  badge,
+  title,
+  titleAccent,
+  description,
+  price,
+  priceNote,
+  features,
+  schedule,
+  requirements,
+  groupTitle,
+  groupDescription,
+  cta,
+  ctaSection,
+} = tandemContent
 
 const iconMap = { Clock, Ruler, Wind, ShieldCheck, Users }
 
@@ -28,7 +43,7 @@ onMounted(() => {
           }
         })
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     )
     observer.observe(sectionRef.value)
     return () => observer.disconnect()
@@ -39,7 +54,7 @@ onMounted(() => {
 <template>
   <div class="min-h-screen bg-slate-950 font-sans selection:bg-sky-500 selection:text-white">
     <Navbar />
-    
+
     <main>
       <section ref="sectionRef" class="pt-40 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
@@ -49,11 +64,13 @@ onMounted(() => {
             class="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60" />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"
+          />
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-          <button 
+          <button
             @click="goHome"
             class="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 cursor-pointer"
           >
@@ -62,13 +79,14 @@ onMounted(() => {
           </button>
 
           <div class="max-w-4xl">
-            <span class="text-orange-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
+            <span
+              class="text-orange-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
               >{{ badge }}</span
             >
             <h1
               :class="[
-                'text-5xl md:text-8xl font-black text-white mb-8 uppercase italic leading-none',
-                isVisible ? 'animate-slide-up' : 'opacity-0'
+                'text-4xl sm:text-5xl md:text-8xl font-black text-white mb-8 uppercase italic leading-none',
+                isVisible ? 'animate-slide-up' : 'opacity-0',
               ]"
             >
               {{ title }} <br />
@@ -79,7 +97,7 @@ onMounted(() => {
             </p>
             <div class="text-4xl font-black text-white mb-2">{{ price }}</div>
             <p class="text-slate-400 text-sm mb-8">{{ priceNote }}</p>
-            
+
             <button
               @click="openModal('tandem')"
               class="inline-block bg-orange-600 hover:bg-orange-500 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
@@ -92,7 +110,9 @@ onMounted(() => {
 
       <section class="py-24 bg-slate-900">
         <div class="max-w-7xl mx-auto px-6">
-          <h2 class="text-4xl md:text-6xl font-black text-white mb-16 uppercase italic text-center">
+          <h2
+            class="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-16 uppercase italic text-center"
+          >
             ЧТО ВКЛЮЧЕНО
           </h2>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -101,9 +121,14 @@ onMounted(() => {
               :key="idx"
               class="text-center p-8 bg-slate-800/50 border border-white/5 hover:border-orange-500/30 transition-colors"
             >
-              <component :is="iconMap[feature.icon as keyof typeof iconMap]" class="w-10 h-10 text-orange-500 mx-auto mb-4" />
+              <component
+                :is="iconMap[feature.icon as keyof typeof iconMap]"
+                class="w-10 h-10 text-orange-500 mx-auto mb-4"
+              />
               <div class="text-3xl font-black text-white mb-1">{{ feature.title }}</div>
-              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ feature.subtitle }}</div>
+              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                {{ feature.subtitle }}
+              </div>
             </div>
           </div>
         </div>
@@ -123,7 +148,9 @@ onMounted(() => {
                   :key="idx"
                   class="flex gap-6 items-start p-6 bg-slate-900/50 border border-white/5"
                 >
-                  <div class="text-2xl font-black text-orange-500 shrink-0 w-20">{{ item.time }}</div>
+                  <div class="text-2xl font-black text-orange-500 shrink-0 w-20">
+                    {{ item.time }}
+                  </div>
                   <div class="text-white font-medium">{{ item.activity }}</div>
                 </div>
               </div>
@@ -175,7 +202,7 @@ onMounted(() => {
               <span class="inline-block skew-x-[10deg]">{{ cta.primary }}</span>
             </button>
             <a
-              href="tel:+79991234567"
+              :href="PHONE.link"
               class="border-2 border-white px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-orange-600 transition-all skew-x-[-10deg] cursor-pointer inline-block"
             >
               <span class="inline-block skew-x-[10deg]">{{ cta.secondary }}</span>
@@ -192,6 +219,13 @@ onMounted(() => {
 <style scoped>
 .animate-slide-up {
   animation: slideUp 0.8s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {

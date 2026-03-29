@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { X, User, Phone, Calendar, Users, MessageSquare, Check } from 'lucide-vue-next'
+import { X, User, Phone, Calendar, Users, MessageSquare, Check, AlertCircle } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { bookingContent } from '@/content'
+import { PHONE_REGEX } from '@/constants'
 
 const { isOpen, selectedJumpType, closeModal } = useBookingModal()
 
@@ -18,9 +19,22 @@ const formData = ref({
 
 const isSubmitted = ref(false)
 const isSubmitting = ref(false)
+const phoneError = ref('')
+
+const validatePhone = (phone: string): boolean => {
+  const cleaned = phone.replace(/\D/g, '')
+  const formatted = '+7' + cleaned
+  if (!PHONE_REGEX.test(formatted)) {
+    phoneError.value = 'Введите корректный номер телефона'
+    return false
+  }
+  phoneError.value = ''
+  return true
+}
 
 const handleSubmit = async () => {
   if (!formData.value.name || !formData.value.phone) return
+  if (!validatePhone(formData.value.phone)) return
 
   isSubmitting.value = true
 
@@ -92,7 +106,7 @@ const handleBackdropClick = (e: MouseEvent) => {
           >
             <button
               @click="closeModal"
-              class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+              class="absolute top-4 right-4 w-11 h-11 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
               aria-label="Закрыть"
             >
               <X class="w-5 h-5 text-white" />
@@ -116,7 +130,10 @@ const handleBackdropClick = (e: MouseEvent) => {
 
               <div class="space-y-6">
                 <div>
-                  <label for="name" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="name"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.name }}
                   </label>
                   <div class="relative">
@@ -133,28 +150,54 @@ const handleBackdropClick = (e: MouseEvent) => {
                 </div>
 
                 <div>
-                  <label for="phone" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="phone"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.phone }}
                   </label>
                   <div class="relative">
-                    <Phone class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Phone
+                      class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+                    />
                     <input
                       id="phone"
                       v-model="formData.phone"
                       type="tel"
                       required
                       :placeholder="fields.phonePlaceholder"
-                      class="w-full bg-slate-800 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                      :aria-invalid="!!phoneError"
+                      :aria-describedby="phoneError ? 'phone-error' : undefined"
+                      :class="[
+                        'w-full bg-slate-800 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors',
+                        phoneError
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                          : 'border-white/10',
+                      ]"
                     />
+                  </div>
+                  <div
+                    v-if="phoneError"
+                    id="phone-error"
+                    role="alert"
+                    class="flex items-center gap-2 mt-2 text-red-400 text-sm"
+                  >
+                    <AlertCircle class="w-4 h-4" />
+                    <span>{{ phoneError }}</span>
                   </div>
                 </div>
 
                 <div>
-                  <label for="jumpType" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="jumpType"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.jumpType }}
                   </label>
                   <div class="relative">
-                    <Users class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Users
+                      class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+                    />
                     <select
                       id="jumpType"
                       v-model="formData.jumpType"
@@ -168,11 +211,16 @@ const handleBackdropClick = (e: MouseEvent) => {
                 </div>
 
                 <div>
-                  <label for="date" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="date"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.date }}
                   </label>
                   <div class="relative">
-                    <Calendar class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Calendar
+                      class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+                    />
                     <input
                       id="date"
                       v-model="formData.date"
@@ -183,7 +231,10 @@ const handleBackdropClick = (e: MouseEvent) => {
                 </div>
 
                 <div>
-                  <label for="message" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="message"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.message }}
                   </label>
                   <div class="relative">
@@ -218,3 +269,12 @@ const handleBackdropClick = (e: MouseEvent) => {
     </Transition>
   </Teleport>
 </template>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .transition-opacity,
+  .transition-all {
+    transition: none !important;
+  }
+}
+</style>

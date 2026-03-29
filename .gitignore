@@ -28,6 +28,10 @@ coverage
 
 .eslintcache
 
+# OpenCode skills
+.opencode/
+__pycache__/
+
 # Cypress
 /cypress/videos/
 /cypress/screenshots/

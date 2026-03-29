@@ -1,21 +1,14 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { X, User, Phone, Gift, MessageSquare, Check } from 'lucide-vue-next'
+import { X, User, Phone, Gift, MessageSquare, Check, AlertCircle } from 'lucide-vue-next'
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { certificateModalContent } from '@/content/sections/certificateModal'
+import { PHONE_REGEX } from '@/constants'
 
 const { isOpen, selectedDenomination, closeModal } = useCertificateModal()
 
-const {
-  title,
-  subtitle,
-  denominations,
-  fields,
-  submit,
-  submitting,
-  privacy,
-  success
-} = certificateModalContent
+const { title, subtitle, denominations, fields, submit, submitting, privacy, success } =
+  certificateModalContent
 
 const formData = ref({
   recipientName: '',
@@ -24,16 +17,36 @@ const formData = ref({
   denomination: selectedDenomination.value || '',
   customAmount: '',
   senderName: '',
-  message: ''
+  message: '',
 })
 
 const isSubmitted = ref(false)
 const isSubmitting = ref(false)
+const phoneError = ref('')
+
+const validatePhone = (phone: string): boolean => {
+  const cleaned = phone.replace(/\D/g, '')
+  const formatted = '+7' + cleaned
+  if (!PHONE_REGEX.test(formatted)) {
+    phoneError.value = 'Введите корректный номер телефона'
+    return false
+  }
+  phoneError.value = ''
+  return true
+}
 
 const handleSubmit = async () => {
-  if (!formData.value.recipientName || !formData.value.recipientLastName || !formData.value.recipientPhone || !formData.value.denomination) return
+  if (
+    !formData.value.recipientName ||
+    !formData.value.recipientLastName ||
+    !formData.value.recipientPhone ||
+    !formData.value.denomination
+  )
+    return
 
   if (formData.value.denomination === 'custom' && !formData.value.customAmount) return
+
+  if (!validatePhone(formData.value.recipientPhone)) return
 
   isSubmitting.value = true
 
@@ -52,7 +65,7 @@ const handleSubmit = async () => {
       denomination: '',
       customAmount: '',
       senderName: '',
-      message: ''
+      message: '',
     }
   }, 3000)
 }
@@ -108,7 +121,7 @@ const handleBackdropClick = (e: MouseEvent) => {
           >
             <button
               @click="closeModal"
-              class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+              class="absolute top-4 right-4 w-11 h-11 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
               aria-label="Закрыть"
             >
               <X class="w-5 h-5 text-white" />
@@ -125,7 +138,10 @@ const handleBackdropClick = (e: MouseEvent) => {
             </div>
 
             <form v-else @submit.prevent="handleSubmit" class="p-8">
-              <h2 id="certificate-title" class="text-3xl font-black text-white mb-2 uppercase italic">
+              <h2
+                id="certificate-title"
+                class="text-3xl font-black text-white mb-2 uppercase italic"
+              >
                 {{ title }}
               </h2>
               <p class="text-slate-400 text-sm mb-8">{{ subtitle }}</p>
@@ -133,11 +149,16 @@ const handleBackdropClick = (e: MouseEvent) => {
               <div class="space-y-5">
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <label for="recipientName" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                    <label
+                      for="recipientName"
+                      class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                    >
                       {{ fields.recipientName }}
                     </label>
                     <div class="relative">
-                      <User class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <User
+                        class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+                      />
                       <input
                         id="recipientName"
                         v-model="formData.recipientName"
@@ -149,11 +170,16 @@ const handleBackdropClick = (e: MouseEvent) => {
                     </div>
                   </div>
                   <div>
-                    <label for="recipientLastName" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                    <label
+                      for="recipientLastName"
+                      class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                    >
                       {{ fields.recipientLastName }}
                     </label>
                     <div class="relative">
-                      <User class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <User
+                        class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+                      />
                       <input
                         id="recipientLastName"
                         v-model="formData.recipientLastName"
@@ -167,24 +193,48 @@ const handleBackdropClick = (e: MouseEvent) => {
                 </div>
 
                 <div>
-                  <label for="recipientPhone" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="recipientPhone"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.recipientPhone }}
                   </label>
                   <div class="relative">
-                    <Phone class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Phone
+                      class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"
+                    />
                     <input
                       id="recipientPhone"
                       v-model="formData.recipientPhone"
                       type="tel"
                       required
                       :placeholder="fields.recipientPhonePlaceholder"
-                      class="w-full bg-slate-800 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
+                      :aria-invalid="!!phoneError"
+                      :aria-describedby="phoneError ? 'cert-phone-error' : undefined"
+                      :class="[
+                        'w-full bg-slate-800 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors',
+                        phoneError
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                          : 'border-white/10',
+                      ]"
                     />
+                  </div>
+                  <div
+                    v-if="phoneError"
+                    id="cert-phone-error"
+                    role="alert"
+                    class="flex items-center gap-2 mt-2 text-red-400 text-sm"
+                  >
+                    <AlertCircle class="w-4 h-4" />
+                    <span>{{ phoneError }}</span>
                   </div>
                 </div>
 
                 <div>
-                  <label for="denomination" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="denomination"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.denomination }}
                   </label>
                   <div class="relative">
@@ -194,7 +244,11 @@ const handleBackdropClick = (e: MouseEvent) => {
                       v-model="formData.denomination"
                       class="w-full bg-slate-800 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors appearance-none cursor-pointer"
                     >
-                      <option v-for="denom in denominations" :key="denom.value" :value="denom.value">
+                      <option
+                        v-for="denom in denominations"
+                        :key="denom.value"
+                        :value="denom.value"
+                      >
                         {{ denom.label }}
                       </option>
                     </select>
@@ -202,7 +256,10 @@ const handleBackdropClick = (e: MouseEvent) => {
                 </div>
 
                 <div v-if="formData.denomination === 'custom'">
-                  <label for="customAmount" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="customAmount"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.customAmount }}
                   </label>
                   <div class="relative">
@@ -220,7 +277,10 @@ const handleBackdropClick = (e: MouseEvent) => {
                 </div>
 
                 <div>
-                  <label for="senderName" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="senderName"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.senderName }}
                   </label>
                   <div class="relative">
@@ -236,7 +296,10 @@ const handleBackdropClick = (e: MouseEvent) => {
                 </div>
 
                 <div>
-                  <label for="message" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <label
+                    for="message"
+                    class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2"
+                  >
                     {{ fields.message }}
                   </label>
                   <div class="relative">
@@ -254,7 +317,12 @@ const handleBackdropClick = (e: MouseEvent) => {
 
               <button
                 type="submit"
-                :disabled="isSubmitting || !formData.recipientName || !formData.recipientLastName || !formData.recipientPhone"
+                :disabled="
+                  isSubmitting ||
+                  !formData.recipientName ||
+                  !formData.recipientLastName ||
+                  !formData.recipientPhone
+                "
                 class="w-full mt-8 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-700 disabled:cursor-not-allowed text-white py-4 text-[11px] font-black uppercase tracking-widest transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
               >
                 <span v-if="isSubmitting">{{ submitting }}</span>
@@ -271,3 +339,12 @@ const handleBackdropClick = (e: MouseEvent) => {
     </Transition>
   </Teleport>
 </template>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .transition-opacity,
+  .transition-all {
+    transition: none !important;
+  }
+}
+</style>

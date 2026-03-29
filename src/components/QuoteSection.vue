@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { quoteContent } from '@/content/sections/hero'
 
 const quoteRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
@@ -19,16 +20,11 @@ onMounted(() => {
     observer.observe(quoteRef.value)
   }
 })
-
-const quoteContent = {
-  text: 'Для большинства небо — это предел. Для нас небо — это дом.',
-  author: ''
-}
 </script>
 
 <template>
   <section ref="quoteRef" class="py-48 text-center relative overflow-hidden bg-slate-900">
-    <div class="absolute inset-0 bg-aurora opacity-40" />
+    <div class="absolute inset-0 bg-aurora opacity-40" aria-hidden="true" />
     <div class="max-w-4xl mx-auto px-6 relative z-10">
       <p
         :class="[

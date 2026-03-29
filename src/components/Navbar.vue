@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { Zap, Menu, X } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
+import { PHONE } from '@/constants'
 
 const route = useRoute()
 const isScrolled = ref(false)
@@ -112,14 +113,23 @@ const scrollToTop = () => {
       </div>
 
       <div class="flex items-center gap-6">
-        <button
-          @click="openModal('tandem')"
+        <a
+          v-if="isHomePage"
+          @click.prevent="openModal('tandem')"
+          href="#"
           class="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
-        </button>
+        </a>
+        <a
+          v-else
+          :href="PHONE.link"
+          class="hidden sm:block border-2 border-white hover:bg-white hover:text-slate-900 text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:bg-white focus-visible:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+        >
+          <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
+        </a>
         <button
-          class="lg:hidden text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-1"
+          class="lg:hidden min-w-11 min-h-11 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg p-2 flex items-center justify-center"
           @click="toggleMobileMenu"
           :aria-expanded="mobileMenuOpen"
           :aria-controls="mobileMenuId"
@@ -180,11 +190,33 @@ const scrollToTop = () => {
           >
             О нас
           </a>
-          <button @click="openModal('tandem'); closeMobileMenu()" class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900" role="menuitem">
+          <button
+            v-if="isHomePage"
+            @click="openModal('tandem'); closeMobileMenu()"
+            class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            role="menuitem"
+          >
             <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
           </button>
+          <a
+            v-else
+            :href="PHONE.link"
+            @click="closeMobileMenu"
+            class="bg-slate-800 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            role="menuitem"
+          >
+            <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
+          </a>
         </div>
       </div>
     </Transition>
   </nav>
 </template>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .transition-all {
+    transition: none !important;
+  }
+}
+</style>

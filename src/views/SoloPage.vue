@@ -2,12 +2,35 @@
 import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import { ArrowLeft, Ruler, Wind, Compass, Plane, CircleDot, CheckCircle, Target } from 'lucide-vue-next'
+import {
+  ArrowLeft,
+  Ruler,
+  Wind,
+  Compass,
+  Plane,
+  CircleDot,
+  CheckCircle,
+  Target,
+} from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
+import { PHONE } from '@/constants'
 import { soloContent } from '@/content'
 
 const { openModal } = useBookingModal()
-const { badge, title, titleAccent, description, price, priceNote, programSteps, features, requirements, trainingLink, cta, ctaSection } = soloContent
+const {
+  badge,
+  title,
+  titleAccent,
+  description,
+  price,
+  priceNote,
+  programSteps,
+  features,
+  requirements,
+  trainingLink,
+  cta,
+  ctaSection,
+} = soloContent
 
 const iconMap = { Ruler, Wind, Compass, Plane, CircleDot, CheckCircle, Target }
 
@@ -28,7 +51,7 @@ onMounted(() => {
           }
         })
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     )
     observer.observe(sectionRef.value)
     return () => observer.disconnect()
@@ -39,7 +62,7 @@ onMounted(() => {
 <template>
   <div class="min-h-screen bg-slate-950 font-sans selection:bg-sky-500 selection:text-white">
     <Navbar />
-    
+
     <main>
       <section ref="sectionRef" class="pt-40 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
@@ -49,11 +72,13 @@ onMounted(() => {
             class="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60" />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"
+          />
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-          <button 
+          <button
             @click="goHome"
             class="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 cursor-pointer"
           >
@@ -62,13 +87,14 @@ onMounted(() => {
           </button>
 
           <div class="max-w-4xl">
-            <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
+            <span
+              class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
               >{{ badge }}</span
             >
             <h1
               :class="[
-                'text-5xl md:text-8xl font-black text-white mb-8 uppercase italic leading-none',
-                isVisible ? 'animate-slide-up' : 'opacity-0'
+                'text-4xl sm:text-5xl md:text-8xl font-black text-white mb-8 uppercase italic leading-none',
+                isVisible ? 'animate-slide-up' : 'opacity-0',
               ]"
             >
               {{ title }} <br />
@@ -79,7 +105,7 @@ onMounted(() => {
             </p>
             <div class="text-4xl font-black text-white mb-2">{{ price }}</div>
             <p class="text-slate-400 text-sm mb-8">{{ priceNote }}</p>
-            
+
             <button
               @click="openModal('solo')"
               class="inline-block bg-sky-600 hover:bg-sky-500 text-white px-12 py-5 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
@@ -92,7 +118,9 @@ onMounted(() => {
 
       <section class="py-24 bg-slate-900">
         <div class="max-w-7xl mx-auto px-6">
-          <h2 class="text-4xl md:text-6xl font-black text-white mb-16 uppercase italic text-center">
+          <h2
+            class="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-16 uppercase italic text-center"
+          >
             ПРОГРАММА <span class="text-slate-600">ПРЫЖКА</span>
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -117,9 +145,20 @@ onMounted(() => {
               :key="idx"
               class="text-center p-6 sm:p-8 bg-slate-900/50 border border-white/5 hover:border-sky-500/30 transition-colors"
             >
-              <component :is="iconMap[feature.icon as keyof typeof iconMap]" class="w-8 h-8 sm:w-10 sm:h-10 text-sky-500 mx-auto mb-3 sm:mb-4" />
-              <div class="text-2xl sm:text-3xl font-black text-white mb-1 h-12 flex items-center justify-center">{{ feature.title }}</div>
-              <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ feature.subtitle }}</div>
+              <component
+                :is="iconMap[feature.icon as keyof typeof iconMap]"
+                class="w-8 h-8 sm:w-10 sm:h-10 text-sky-500 mx-auto mb-3 sm:mb-4"
+              />
+              <div
+                class="text-2xl sm:text-3xl font-black text-white mb-1 h-12 flex items-center justify-center"
+              >
+                {{ feature.title }}
+              </div>
+              <div
+                class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+              >
+                {{ feature.subtitle }}
+              </div>
             </div>
           </div>
 
@@ -140,7 +179,12 @@ onMounted(() => {
             <div class="flex items-center gap-4 p-6 bg-sky-600/20 border border-sky-500/30">
               <Plane class="w-8 h-8 text-sky-500 shrink-0" />
               <p class="text-slate-300">
-                Хотите продолжить обучение? <RouterLink to="/training" class="text-sky-400 hover:text-white underline cursor-pointer">{{ trainingLink }}</RouterLink>
+                Хотите продолжить обучение?
+                <RouterLink
+                  to="/training"
+                  class="text-sky-400 hover:text-white underline cursor-pointer"
+                  >{{ trainingLink }}</RouterLink
+                >
                 и получите квалификационное свидетельство пилота!
               </p>
             </div>
@@ -164,7 +208,7 @@ onMounted(() => {
               <span class="inline-block skew-x-[10deg]">{{ cta.primary }}</span>
             </button>
             <a
-              href="tel:+79991234567"
+              :href="PHONE.link"
               class="border-2 border-white px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-sky-600 transition-all skew-x-[-10deg] cursor-pointer inline-block"
             >
               <span class="inline-block skew-x-[10deg]">{{ cta.secondary }}</span>
@@ -181,6 +225,13 @@ onMounted(() => {
 <style scoped>
 .animate-slide-up {
   animation: slideUp 0.8s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {

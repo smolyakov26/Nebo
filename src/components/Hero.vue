@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Play } from 'lucide-vue-next'
+import { heroContent } from '@/content/sections/hero'
 
 const scrollToFormats = () => {
   const element = document.getElementById('formats')
@@ -7,23 +8,14 @@ const scrollToFormats = () => {
     element.scrollIntoView({ behavior: 'smooth' })
   }
 }
-
-const heroContent = {
-  badge: 'Сезон 2026 открыт',
-  title: 'НЕБО',
-  titleAccent: 'ТВОЯ СТИХИЯ',
-  description: 'Почувствуйте абсолютную свободу в свободном падении. Мы создаем моменты, которые меняют жизнь навсегда.',
-  primaryCta: 'НАЧАТЬ ПОЛЕТ',
-  secondaryCta: 'Смотреть видео'
-}
 </script>
 
 <template>
   <section class="relative h-screen flex items-center justify-center overflow-hidden bg-slate-950">
-    <div class="absolute inset-0 z-0 opacity-50">
+    <div class="absolute inset-0 z-0 opacity-50" aria-hidden="true">
       <img
         src="https://picsum.photos/seed/skydiving-hero/1920/1080"
-        alt="Прыжок с парашютом"
+        alt=""
         class="w-full h-full object-cover scale-105"
         referrerPolicy="no-referrer"
       />
@@ -58,13 +50,14 @@ const heroContent = {
             <a
               href="#formats"
               @click.prevent="scrollToFormats"
-              class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer inline-block focus-visible:bg-orange-500"
+              class="bg-orange-600 hover:bg-orange-500 text-white px-10 py-4 text-[11px] font-black uppercase tracking-widest transition-all skew-x-[-10deg] cursor-pointer inline-block focus-visible:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               <span class="inline-block skew-x-[10deg]">{{ heroContent.primaryCta }}</span>
             </a>
-            <button class="group flex items-center gap-4 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-full">
+            <button class="group flex items-center gap-4 text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-full">
               <div
                 class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-slate-900 transition-all"
+                aria-hidden="true"
               >
                 <Play class="w-5 h-5 fill-current" />
               </div>
@@ -75,7 +68,7 @@ const heroContent = {
       </div>
     </div>
 
-    <div class="absolute right-8 bottom-12 hidden xl:flex flex-col gap-8 items-end">
+    <div class="absolute right-8 bottom-12 hidden xl:flex flex-col gap-8 items-end" aria-hidden="true">
       <div class="text-right">
         <div class="text-4xl font-black text-white leading-none">4000М</div>
         <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
@@ -101,6 +94,14 @@ const heroContent = {
   .animate-fade-in-up {
     animation: none;
     opacity: 1;
+  }
+  
+  .animate-pulse {
+    animation: none;
+  }
+  
+  .animate-gradient {
+    animation: none;
   }
 }
 

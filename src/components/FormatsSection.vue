@@ -59,9 +59,11 @@ onUnmounted(() => {
           :key="format.id"
           :style="{ animationDelay: `${idx * 0.1}s` }"
           :class="[
-            'group relative bg-slate-900/50 border border-white/10 overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer',
+            'group relative bg-slate-900/50 border border-white/10 overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer focus-within:ring-2 focus-within:ring-sky-500',
             isVisible ? 'animate-slide-up' : 'opacity-0'
           ]"
+          tabindex="0"
+          role="article"
         >
           <div class="aspect-[4/5] overflow-hidden relative">
             <img
@@ -103,13 +105,13 @@ onUnmounted(() => {
           <div class="flex">
             <RouterLink
               :to="format.route"
-              class="flex-1 bg-white text-slate-900 py-3 sm:py-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest translate-y-full group-hover:translate-y-0 transition-transform duration-500 flex items-center justify-center cursor-pointer"
+              class="flex-1 bg-white text-slate-900 py-3 sm:py-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-500 flex items-center justify-center cursor-pointer"
             >
               ПОДРОБНЕЕ
             </RouterLink>
             <button
               @click="openModal(format.id)"
-              class="flex-1 bg-sky-600 hover:bg-sky-500 text-white py-3 sm:py-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest translate-y-full group-hover:translate-y-0 transition-transform duration-500 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-inset"
+              class="flex-1 bg-sky-600 hover:bg-sky-500 text-white py-3 sm:py-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-500 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-inset"
             >
               ЗАБРОНИРОВАТЬ
             </button>
@@ -129,6 +131,18 @@ onUnmounted(() => {
   .animate-slide-up {
     animation: none;
     opacity: 1;
+  }
+  
+  article img {
+    transition: none;
+  }
+  
+  article p.text-slate-300 {
+    opacity: 1;
+  }
+  
+  article .translate-y-full {
+    transform: translateY(0);
   }
 }
 

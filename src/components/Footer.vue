@@ -60,8 +60,9 @@ import { footerContent } from '@/content/sections/footer'
               :key="social.name"
               :href="social.url"
               target="_blank"
-              rel="noopener"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky-600 hover:text-white transition-colors text-white cursor-pointer"
+              rel="noopener noreferrer"
+              :aria-label="social.name"
+              class="w-11 h-11 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky-600 hover:text-white transition-colors text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               <span class="text-xs font-bold">{{ social.name }}</span>
             </a>

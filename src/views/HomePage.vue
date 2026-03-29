@@ -9,6 +9,7 @@ import ContactsSection from '@/components/ContactsSection.vue'
 import Footer from '@/components/Footer.vue'
 import { Gift, Heart } from 'lucide-vue-next'
 import { FORMATS } from '@/data/formats'
+import { PHONE } from '@/constants'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { homeCtaContent, certificateContent } from '@/content'
@@ -34,6 +35,7 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
             alt=""
             class="w-full h-full object-cover"
             referrerPolicy="no-referrer"
+            @error="($event.target as HTMLImageElement).style.display = 'none'"
           />
         </div>
         <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -104,7 +106,7 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
               <span class="inline-block skew-x-[10deg]">{{ primaryCta }}</span>
             </button>
             <a
-              href="tel:+79991234567"
+              :href="PHONE.link"
               class="border-2 border-white px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-white hover:text-sky-600 transition-all skew-x-[-10deg] inline-block cursor-pointer focus-visible:bg-white focus-visible:text-sky-600"
             >
               <span class="inline-block skew-x-[10deg]">{{ secondaryCta }}</span>
