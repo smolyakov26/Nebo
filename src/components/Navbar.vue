@@ -3,7 +3,6 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { Zap, Menu, X } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
-import { PHONE } from '@/constants'
 import { formatsContent } from '@/content/sections/formats'
 
 const route = useRoute()
@@ -59,6 +58,11 @@ const scrollToTop = () => {
 
 const handleMobileBooking = () => {
   openModal('tandem')
+  closeMobileMenu()
+}
+
+const handleMobileCallback = () => {
+  openModal('callback')
   closeMobileMenu()
 }
 </script>
@@ -124,20 +128,14 @@ const handleMobileBooking = () => {
             О нас
           </a>
           <button
-            @click="
-              openModal('tandem')
-              closeMobileMenu()
-            "
+            @click="handleMobileBooking"
             class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             role="menuitem"
           >
             <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
           </button>
           <button
-            @click="
-              openModal('callback')
-              closeMobileMenu()
-            "
+            @click="handleMobileCallback"
             class="bg-sky-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             role="menuitem"
           >
@@ -234,22 +232,19 @@ const handleMobileBooking = () => {
             О нас
           </a>
           <button
-            v-if="isHomePage"
             @click="handleMobileBooking"
             class="bg-orange-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             role="menuitem"
           >
-            <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
+            <span class="inline-block skew-x-[10deg]">ЗАБРОНИРОВАТЬ</span>
           </button>
-          <a
-            v-else
-            :href="PHONE.link"
-            @click="closeMobileMenu"
-            class="bg-slate-800 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+          <button
+            @click="handleMobileCallback"
+            class="bg-sky-600 text-white py-4 skew-x-[-10deg] text-center cursor-pointer hover:bg-sky-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             role="menuitem"
           >
             <span class="inline-block skew-x-[10deg]">ПОЗВОНИТЬ</span>
-          </a>
+          </button>
         </div>
       </div>
     </Transition>
