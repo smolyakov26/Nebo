@@ -2,16 +2,8 @@
 import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import {
-  ArrowLeft,
-  Ruler,
-  Wind,
-  Compass,
-  Plane,
-  CircleDot,
-  CheckCircle,
-  Target,
-} from 'lucide-vue-next'
+import { RouterLink } from 'vue-router'
+import { Ruler, Wind, Compass, CircleDot, CheckCircle, Target } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { soloContent } from '@/content'
@@ -27,16 +19,11 @@ const {
   programSteps,
   features,
   requirements,
-  trainingLink,
   cta,
   ctaSection,
 } = soloContent
 
-const iconMap = { Ruler, Wind, Compass, Plane, CircleDot, CheckCircle, Target }
-
-const goHome = () => {
-  window.location.href = '/'
-}
+const iconMap = { Ruler, Wind, Compass, CircleDot, CheckCircle, Target }
 
 const isVisible = ref(false)
 const sectionRef = ref<HTMLElement | null>(null)
@@ -78,14 +65,6 @@ onMounted(() => {
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-          <button
-            @click="goHome"
-            class="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 cursor-pointer"
-          >
-            <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span class="text-[11px] font-bold uppercase tracking-widest">На главную</span>
-          </button>
-
           <div class="max-w-4xl">
             <span
               class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
@@ -176,17 +155,13 @@ onMounted(() => {
                 {{ req }}
               </li>
             </ul>
-            <div class="flex items-center gap-4 p-6 bg-sky-600/20 border border-sky-500/30">
-              <Plane class="w-8 h-8 text-sky-500 shrink-0" />
-              <p class="text-slate-300">
+            <div class="p-6 bg-sky-600/20 border border-sky-500/30 text-center">
+              <RouterLink
+                to="/training"
+                class="inline-block bg-sky-600 hover:bg-sky-500 text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest transition-all cursor-pointer"
+              >
                 Хотите продолжить обучение?
-                <RouterLink
-                  to="/training"
-                  class="text-sky-400 hover:text-white underline cursor-pointer"
-                  >{{ trainingLink }}</RouterLink
-                >
-                и получите квалификационное свидетельство пилота!
-              </p>
+              </RouterLink>
             </div>
           </div>
         </div>

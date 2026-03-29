@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import { ArrowLeft, Gift, Calendar, Sparkles, RefreshCw, CheckCircle, Heart } from 'lucide-vue-next'
+import { Gift, Calendar, Sparkles, RefreshCw, CheckCircle, Heart } from 'lucide-vue-next'
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { PHONE } from '@/constants'
 import { certificateContent } from '@/content'
@@ -22,10 +22,6 @@ const {
 } = certificateContent
 
 const iconMap = { Gift, Calendar, Sparkles, RefreshCw, CheckCircle }
-
-const goHome = () => {
-  window.location.href = '/'
-}
 
 const isVisible = ref(false)
 const sectionRef = ref<HTMLElement | null>(null)
@@ -67,14 +63,6 @@ onMounted(() => {
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-          <button
-            @click="goHome"
-            class="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 cursor-pointer"
-          >
-            <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span class="text-[11px] font-bold uppercase tracking-widest">На главную</span>
-          </button>
-
           <div class="max-w-4xl">
             <span
               class="text-rose-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
@@ -131,7 +119,7 @@ onMounted(() => {
           <h2 class="text-4xl md:text-6xl font-black text-white mb-16 uppercase italic text-center">
             ПРЕИМУЩЕСТВА
           </h2>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             <div
               v-for="(feature, idx) in features"
               :key="idx"

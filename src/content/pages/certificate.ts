@@ -3,13 +3,11 @@ export const certificateContent = {
   title: 'ПОДАРИ',
   titleAccent: 'НЕБО',
   description:
-    'Подарочный сертификат на прыжок с парашютом — идеальный подарок для тех, кто мечтает о небе. Сертификат действует 6 месяцев с момента покупки.',
+    'Подарочный сертификат на прыжок с парашютом — идеальный подарок для тех, кто мечтает о небе.',
   priceNote: 'Номинал сертификата',
   denominations: [
-    { value: '17400', amount: '17 400 ₽', description: 'Тандем прыжок' },
-    { value: '7900', amount: '7 900 ₽', description: 'Самостоятельный прыжок' },
-    { value: '130000', amount: '130 000 ₽', description: 'Курс обучения' },
-    { value: 'custom', amount: 'от 7 900 ₽', description: 'Любая сумма' },
+    { value: '17000', amount: '17 000 ₽', description: 'Тандем прыжок' },
+    { value: '7500', amount: '7 500 ₽', description: 'Самостоятельный прыжок' },
   ],
   features: [
     {
@@ -18,19 +16,9 @@ export const certificateContent = {
       description: 'Выберите формат: красивый PDF или доставка оригинала',
     },
     {
-      icon: 'Calendar',
-      title: 'Действует 6 месяцев',
-      description: 'Полгода на выбор идеальной даты для прыжка',
-    },
-    {
       icon: 'Sparkles',
       title: 'Персонализация',
       description: 'Добавим имя получателя и ваше поздравление',
-    },
-    {
-      icon: 'RefreshCw',
-      title: 'Легкий обмен',
-      description: 'Можно изменить тип прыжка или перенести дату',
     },
   ],
   howItWorks: [

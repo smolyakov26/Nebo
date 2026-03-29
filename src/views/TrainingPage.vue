@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import { ArrowLeft, Award, ShieldCheck, Plane, Users, Clock, CheckCircle } from 'lucide-vue-next'
+import { Award, ShieldCheck, Plane, Users, Clock, CheckCircle } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { trainingContent } from '@/content'
@@ -24,10 +24,6 @@ const {
 } = trainingContent
 
 const iconMap = { Award, ShieldCheck, Plane, Users, Clock, CheckCircle }
-
-const goHome = () => {
-  window.location.href = '/'
-}
 
 const isVisible = ref(false)
 const sectionRef = ref<HTMLElement | null>(null)
@@ -69,14 +65,6 @@ onMounted(() => {
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-          <button
-            @click="goHome"
-            class="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 cursor-pointer"
-          >
-            <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span class="text-[11px] font-bold uppercase tracking-widest">На главную</span>
-          </button>
-
           <div class="max-w-4xl">
             <span
               class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"

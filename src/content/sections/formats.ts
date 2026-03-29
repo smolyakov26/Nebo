@@ -9,12 +9,12 @@ export const formatsContent = {
       id: 'tandem',
       title: 'ТАНДЕМ ПРЫЖОК',
       subtitle: 'Первый шаг в небо с инструктором',
-      price: '17 000 ₽',
+      price: 'от 17 000 ₽',
       description:
-        'Идеально для новичков. 60 секунд свободного падения с высоты 4000 метров в паре с опытным инструктором.',
+        'Идеально для новичков. 60 секунд свободного падения с высоты 3000 метров в паре с опытным инструктором.',
       image: '/images/home/tandem_main_page.jpg',
       stats: [
-        { label: 'Высота', value: '4000м' },
+        { label: 'Высота', value: '3000м' },
         { label: 'Скорость', value: '200 км/ч' },
       ],
       color: 'from-orange-500 to-rose-500',
@@ -26,11 +26,11 @@ export const formatsContent = {
       subtitle: 'Первый самостоятельный',
       price: '7 500 ₽',
       description:
-        'По программе ДОСААФ №1-2. Прыжок с круглым парашютом с высоты 700 метров. Принудительное раскрытие.',
+        'Прыжок с круглым парашютом с высоты 800 метров. Принудительное раскрытие.',
       image: '/images/home/solo_main.jpg',
       stats: [
-        { label: 'Высота', value: '700м' },
-        { label: 'Парашют', value: 'Д-1-5у' },
+        { label: 'Высота', value: '800м' },
+        { label: 'Парашют', value: 'Д-10' },
       ],
       color: 'from-sky-500 to-indigo-500',
       route: '/solo',

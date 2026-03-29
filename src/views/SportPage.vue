@@ -2,7 +2,19 @@
 import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import { ArrowLeft, Users, Ruler, Target, Trophy, Medal, ArrowDown, Camera } from 'lucide-vue-next'
+import {
+  IdCard,
+  BookOpen,
+  Shield,
+  FileText,
+  HeartPulse,
+  Plane,
+  Wind,
+  Calendar,
+  MapPin,
+  AlertCircle,
+  CheckCircle2,
+} from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { sportContent } from '@/content'
@@ -15,18 +27,26 @@ const {
   description,
   price,
   priceNote,
-  disciplines,
+  altitudes,
+  requiredDocuments,
   features,
-  requirements,
-  competitions,
   cta,
   ctaSection,
+  additionalInfo,
 } = sportContent
 
-const iconMap = { Users, Ruler, Target, Trophy, Medal, ArrowDown, Camera }
-
-const goHome = () => {
-  window.location.href = '/'
+const iconMap = {
+  IdCard,
+  BookOpen,
+  Shield,
+  FileText,
+  HeartPulse,
+  Plane,
+  Wind,
+  Calendar,
+  MapPin,
+  AlertCircle,
+  CheckCircle2,
 }
 
 const isVisible = ref(false)
@@ -69,14 +89,6 @@ onMounted(() => {
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-          <button
-            @click="goHome"
-            class="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 cursor-pointer"
-          >
-            <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span class="text-[11px] font-bold uppercase tracking-widest">На главную</span>
-          </button>
-
           <div class="max-w-4xl">
             <span
               class="text-emerald-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
@@ -95,7 +107,10 @@ onMounted(() => {
               {{ description }}
             </p>
             <div class="text-4xl font-black text-white mb-2">{{ price }}</div>
-            <p class="text-slate-400 text-sm mb-8">{{ priceNote }}</p>
+            <p class="text-slate-400 text-sm mb-2">{{ priceNote }}</p>
+            <p class="text-emerald-400 text-sm font-medium">
+              Высота: {{ altitudes.min }} - {{ altitudes.max }} {{ altitudes.unit }}
+            </p>
 
             <button
               @click="openModal('sport')"
@@ -110,35 +125,41 @@ onMounted(() => {
       <section class="py-24 bg-slate-900">
         <div class="max-w-7xl mx-auto px-6">
           <h2
-            class="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-16 uppercase italic text-center"
+            class="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-4 uppercase italic text-center"
           >
-            ДИСЦИПЛИНЫ
+            НЕОБХОДИМЫЕ ДОКУМЕНТЫ
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <p class="text-slate-400 text-center mb-16 max-w-2xl mx-auto">
+            Для совершения спортивных прыжков в нашем аэроклубе необходимо иметь следующие
+            документы:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div
-              v-for="(disc, idx) in disciplines"
+              v-for="(doc, idx) in requiredDocuments"
               :key="idx"
-              class="p-8 bg-slate-800/50 border border-white/5 hover:border-emerald-500/30 transition-colors"
+              class="p-6 bg-slate-800/50 border border-white/5 hover:border-emerald-500/30 transition-colors relative"
             >
-              <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center gap-4">
-                  <div
-                    class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"
-                  >
-                    <component
-                      :is="iconMap[disc.icon as keyof typeof iconMap]"
-                      class="w-6 h-6 text-emerald-500"
-                    />
-                  </div>
-                  <h3 class="text-xl font-bold text-white uppercase">{{ disc.title }}</h3>
-                </div>
-                <span
-                  class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest px-3 py-1 bg-emerald-500/10 border border-emerald-500/30"
-                >
-                  {{ disc.level }}
-                </span>
+              <div
+                class="absolute top-0 left-0 w-8 h-8 bg-emerald-600 text-white flex items-center justify-center text-sm font-bold"
+              >
+                {{ idx + 1 }}
               </div>
-              <p class="text-slate-400">{{ disc.description }}</p>
+              <div class="flex items-start gap-4 pt-2">
+                <div
+                  class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0"
+                >
+                  <component
+                    :is="iconMap[doc.icon as keyof typeof iconMap]"
+                    class="w-6 h-6 text-emerald-500"
+                  />
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-white mb-2">{{ doc.title }}</h3>
+                  <p class="text-slate-400 text-sm mb-2">{{ doc.description }}</p>
+                  <p v-if="doc.note" class="text-emerald-400 text-xs italic">{{ doc.note }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -163,41 +184,27 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div class="bg-slate-900/50 border border-white/5 p-12">
-              <h2 class="text-4xl font-black text-white mb-8 uppercase italic">ТРЕБОВАНИЯ</h2>
-              <ul class="space-y-4">
-                <li
-                  v-for="(req, idx) in requirements"
-                  :key="idx"
-                  class="flex items-start gap-4 text-slate-300"
-                >
-                  <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-2" />
-                  {{ req }}
-                </li>
-              </ul>
-            </div>
-
-            <div class="bg-emerald-600/10 border border-emerald-500/30 p-12">
-              <h2 class="text-4xl font-black text-white mb-8 uppercase italic">
-                СОРЕВНОВАНИЯ <span class="text-emerald-500">2026</span>
-              </h2>
-              <div class="space-y-6">
-                <div
-                  v-for="(comp, idx) in competitions"
-                  :key="idx"
-                  class="flex items-center justify-between p-4 bg-slate-900/50"
-                >
-                  <div>
-                    <div class="font-bold text-white">{{ comp.name }}</div>
-                    <div class="text-sm text-slate-400">{{ comp.level }}</div>
-                  </div>
-                  <span class="text-emerald-400 font-bold">{{ comp.month }}</span>
-                </div>
+          <div class="bg-slate-900/50 border border-white/5 p-8 md:p-12">
+            <div class="flex items-start gap-4 mb-8">
+              <component :is="iconMap['AlertCircle']" class="w-8 h-8 text-amber-500 shrink-0" />
+              <div>
+                <h2 class="text-3xl font-black text-white mb-4 uppercase italic">
+                  {{ additionalInfo.title }}
+                </h2>
+                <ul class="space-y-3">
+                  <li
+                    v-for="(item, idx) in additionalInfo.items"
+                    :key="idx"
+                    class="flex items-start gap-3 text-slate-300"
+                  >
+                    <component
+                      :is="iconMap['CheckCircle2']"
+                      class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"
+                    />
+                    {{ item }}
+                  </li>
+                </ul>
               </div>
-              <p class="text-slate-400 text-sm mt-6">
-                Присоединяйтесь к нашей команде или соберите свою группу для участия!
-              </p>
             </div>
           </div>
         </div>

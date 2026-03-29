@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import { ArrowLeft, Clock, Ruler, Wind, ShieldCheck, Users } from 'lucide-vue-next'
+import { Clock, Ruler, Wind, ShieldCheck, Users } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { tandemContent } from '@/content'
@@ -18,6 +18,7 @@ const {
   features,
   schedule,
   requirements,
+  videoOptions,
   groupTitle,
   groupDescription,
   cta,
@@ -25,10 +26,6 @@ const {
 } = tandemContent
 
 const iconMap = { Clock, Ruler, Wind, ShieldCheck, Users }
-
-const goHome = () => {
-  window.location.href = '/'
-}
 
 const isVisible = ref(false)
 const sectionRef = ref<HTMLElement | null>(null)
@@ -70,14 +67,6 @@ onMounted(() => {
         </div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-          <button
-            @click="goHome"
-            class="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 cursor-pointer"
-          >
-            <ArrowLeft class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span class="text-[11px] font-bold uppercase tracking-widest">На главную</span>
-          </button>
-
           <div class="max-w-4xl">
             <span
               class="text-orange-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
@@ -140,7 +129,7 @@ onMounted(() => {
             <div>
               <h2 class="text-4xl md:text-6xl font-black text-white mb-8 uppercase italic">
                 ПРОГРАММА <br />
-                <span class="text-slate-600">ДНЯ</span>
+                <span class="text-slate-600">ПРЫЖКА</span>
               </h2>
               <div class="space-y-6">
                 <div
@@ -171,6 +160,23 @@ onMounted(() => {
                   {{ req }}
                 </li>
               </ul>
+
+              <div v-if="videoOptions" class="mt-12">
+                <h3 class="text-2xl font-black text-white mb-6 uppercase italic">ВИДЕОСЪЁМКА</h3>
+                <div class="space-y-4">
+                  <div
+                    v-for="(video, idx) in videoOptions"
+                    :key="idx"
+                    class="p-6 bg-slate-800/50 border border-white/5"
+                  >
+                    <div class="flex justify-between items-start mb-2">
+                      <h4 class="text-white font-bold">{{ video.title }}</h4>
+                      <span class="text-orange-500 font-black">{{ video.price }}</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">{{ video.description }}</p>
+                  </div>
+                </div>
+              </div>
 
               <div class="mt-12 p-8 bg-orange-600/20 border border-orange-500/30">
                 <div class="flex items-center gap-4 mb-4">

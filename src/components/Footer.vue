@@ -20,8 +20,8 @@ import { footerContent } from '@/content/sections/footer'
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-16">
-        <div class="text-center sm:text-left">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-12 sm:mb-16">
+        <div class="flex flex-col items-center h-full">
           <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-sky-500 mb-4 sm:mb-6">
             Навигация
           </h4>
@@ -43,12 +43,12 @@ import { footerContent } from '@/content/sections/footer'
           </ul>
         </div>
 
-        <div class="text-center sm:text-left">
+        <div class="flex flex-col items-center h-full">
           <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-sky-500 mb-4 sm:mb-6">
             Контакты
           </h4>
           <ul class="space-y-2 sm:space-y-4 text-sm text-slate-400">
-            <li class="flex items-center gap-2 justify-center sm:justify-start">
+            <li class="flex items-center gap-2">
               <MapPin class="w-4 h-4 shrink-0" />
               {{ footerContent.contacts?.[0]?.value }}
             </li>
@@ -70,25 +70,6 @@ import { footerContent } from '@/content/sections/footer'
             </li>
             <li v-if="footerContent.contacts?.[3]">{{ footerContent.contacts[3].value }}</li>
           </ul>
-        </div>
-
-        <div class="text-center sm:text-left sm:col-span-2 md:col-span-2">
-          <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-sky-500 mb-4 sm:mb-6">
-            Соцсети
-          </h4>
-          <div class="flex gap-4 justify-center sm:justify-start">
-            <a
-              v-for="social in footerContent.socials"
-              :key="social.name"
-              :href="social.url"
-              target="_blank"
-              rel="noopener noreferrer"
-              :aria-label="social.name"
-              class="w-11 h-11 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky-600 hover:text-white transition-colors text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-            >
-              <span class="text-xs font-bold">{{ social.name }}</span>
-            </a>
-          </div>
         </div>
       </div>
 

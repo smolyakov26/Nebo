@@ -5,7 +5,7 @@ export const contactsContent = {
   cta: 'Забронировать прыжок',
   address: 'Ставропольский край, г. Ессентуки, Суворовское шоссе, 1',
   phone: '+7 (928) 630-91-44',
-  email: 'info@dz-extreme.ru',
+  email: 'info@nebo-kmv.ru',
   hours: 'Среда — Воскресенье, с 09:00 до 18:00',
   socials: [
     { name: 'VK', url: 'https://vk.com' },

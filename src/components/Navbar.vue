@@ -82,7 +82,7 @@ const handleMobileBooking = () => {
           @click.prevent="scrollToTop"
         >
           <Zap class="w-6 h-6 fill-sky-500 text-sky-500" />
-          <span>DZ EXTREME</span>
+          <span>NEBO-KMV</span>
         </a>
         <div
           class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400"
