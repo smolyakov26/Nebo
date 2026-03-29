@@ -34,9 +34,7 @@ const handleImageError = () => {
         referrerPolicy="no-referrer"
         @error="handleImageError"
       />
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-slate-950/10 via-transparent to-slate-950/50"
-      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
@@ -48,7 +46,7 @@ const handleImageError = () => {
           {{ heroContent.badge }}
         </div>
         <h1
-          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[0.95] tracking-tight mb-8 uppercase italic"
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[0.95] tracking-tight mb-8 uppercase italic drop-shadow-lg"
         >
           {{ heroContent.title }} <br />
           <span
@@ -59,7 +57,7 @@ const handleImageError = () => {
 
         <div class="flex flex-col md:flex-row items-center justify-center gap-6 mt-8">
           <p
-            class="max-w-xs text-slate-300 text-sm leading-relaxed text-left border-l-2 border-sky-500 pl-6"
+            class="max-w-xs text-white text-sm leading-relaxed text-left border-l-2 border-sky-500 pl-6 drop-shadow-md"
           >
             {{ heroContent.description }}
           </p>

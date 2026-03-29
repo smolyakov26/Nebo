@@ -1,6 +1,6 @@
 export const footerContent = {
   logo: 'DZ EXTREME',
-  description: 'Ессентукский аэроклуб ДОСААФ. Прыжки с парашютом с 2000 года.',
+  description: '',
   navigation: [
     { label: 'Прыжки в тандеме', href: '#formats' },
     { label: 'Обучение', href: '/training' },

@@ -3,5 +3,5 @@ export const homeCtaContent = {
   title: 'ГОТОВ',
   titleAccent: 'ВЗЛЕТЕТЬ?',
   primaryCta: 'ЗАБРОНИРОВАТЬ ПРЫЖОК',
-  secondaryCta: 'ПОЗВОНИТЬ НАМ'
+  phone: '+7 (928) 630-91-44',
 }

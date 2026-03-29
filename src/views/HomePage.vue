@@ -15,7 +15,7 @@ import { homeCtaContent, certificateContent } from '@/content'
 
 const { openModal } = useBookingModal()
 const { openModal: openCertModal } = useCertificateModal()
-const { badge, title, titleAccent, primaryCta, secondaryCta } = homeCtaContent
+const { badge, title, titleAccent, primaryCta, phone } = homeCtaContent
 const { badge: certBadge, title: certTitle, description: certDescription, cta } = certificateContent
 </script>
 
@@ -115,7 +115,7 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
               :href="PHONE.link"
               class="border-2 border-white px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-white hover:text-sky-600 transition-all skew-x-[-10deg] inline-block cursor-pointer focus-visible:bg-white focus-visible:text-sky-600"
             >
-              <span class="inline-block skew-x-[10deg]">{{ secondaryCta }}</span>
+              <span class="inline-block skew-x-[10deg]">{{ phone }}</span>
             </a>
           </div>
         </div>
