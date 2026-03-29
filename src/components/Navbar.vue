@@ -4,6 +4,7 @@ import { useRoute, RouterLink } from 'vue-router'
 import { Zap, Menu, X } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
+import { formatsContent } from '@/content/sections/formats'
 
 const route = useRoute()
 const isScrolled = ref(false)
@@ -86,13 +87,14 @@ const handleMobileBooking = () => {
         <div
           class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400"
         >
-          <a
-            href="#formats"
-            @click.prevent="scrollToSection('formats')"
+          <RouterLink
+            v-for="format in formatsContent.formats"
+            :key="format.id"
+            :to="format.route"
             class="hover:text-white transition-colors cursor-pointer focus-visible:text-white font-sans"
           >
-            Форматы
-          </a>
+            {{ format.title.split(' ')[0] }}
+          </RouterLink>
           <RouterLink
             to="/training"
             @click="closeMobileMenu"
@@ -170,14 +172,16 @@ const handleMobileBooking = () => {
         <div
           class="px-6 py-8 flex flex-col gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-400"
         >
-          <a
-            href="#formats"
-            @click.prevent="scrollToSection('formats')"
+          <RouterLink
+            v-for="format in formatsContent.formats"
+            :key="format.id"
+            :to="format.route"
+            @click="closeMobileMenu"
             class="hover:text-white cursor-pointer focus-visible:text-white text-left"
             role="menuitem"
           >
-            Форматы
-          </a>
+            {{ format.title.split(' ')[0] }}
+          </RouterLink>
           <RouterLink
             to="/training"
             @click="closeMobileMenu"
