@@ -6,6 +6,7 @@ import SportPage from '@/views/SportPage.vue'
 import TrainingPage from '@/views/TrainingPage.vue'
 import CertificatePage from '@/views/CertificatePage.vue'
 import GalleryPage from '@/views/GalleryPage.vue'
+import NotFoundPage from '@/views/NotFoundPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/gallery',
       name: 'gallery',
       component: GalleryPage,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundPage,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

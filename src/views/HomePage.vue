@@ -68,12 +68,8 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
                 <div class="text-4xl font-black mb-2">5 000 ₽</div>
                 <div class="text-sm text-rose-200">Ознакомительный</div>
               </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-                <div class="text-4xl font-black mb-2">75 000 ₽</div>
-                <div class="text-sm text-rose-200">Курс обучения</div>
-              </div>
               <div
-                class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center flex flex-col items-center justify-center"
+                class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center flex flex-col items-center justify-center col-span-2"
               >
                 <Heart class="w-8 h-8 mb-2" />
                 <div class="text-sm text-rose-200">Идеальный подарок</div>

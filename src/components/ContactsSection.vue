@@ -106,7 +106,7 @@ onUnmounted(() => {
             {{ contactsContent.cta }}
           </button>
 
-          <div class="flex justify-center gap-4">
+          <div class="hidden md:flex justify-center gap-4">
             <a
               v-for="social in contactsContent.socials"
               :key="social.name"

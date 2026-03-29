@@ -13,7 +13,7 @@ export const experienceContent = {
     {
       icon: 'ShieldCheck',
       title: 'Безопасность прежде всего',
-      description: 'Современное снаряжение Performance Designs и страхующие приборы CYPRES 2.',
+      description: 'Современное оборудование, ежегодные экзамены и курсы повышения квалификации.',
     },
   ],
   cta: 'Узнать программу обучения',
