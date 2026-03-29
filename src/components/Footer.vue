@@ -20,8 +20,8 @@ import { footerContent } from '@/content/sections/footer'
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-12 sm:mb-16">
-        <div class="flex flex-col items-center h-full">
+      <div class="flex flex-col items-center gap-12 mb-12 sm:mb-16">
+        <div class="flex flex-col items-center text-center">
           <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-sky-500 mb-4 sm:mb-6">
             Навигация
           </h4>
@@ -43,12 +43,12 @@ import { footerContent } from '@/content/sections/footer'
           </ul>
         </div>
 
-        <div class="flex flex-col items-center h-full">
+        <div class="flex flex-col items-center text-center">
           <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-sky-500 mb-4 sm:mb-6">
             Контакты
           </h4>
           <ul class="space-y-2 sm:space-y-4 text-sm text-slate-400">
-            <li class="flex items-center gap-2">
+            <li class="flex items-center gap-2 justify-center">
               <MapPin class="w-4 h-4 shrink-0" />
               {{ footerContent.contacts?.[0]?.value }}
             </li>

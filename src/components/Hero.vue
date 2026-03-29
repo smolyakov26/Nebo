@@ -54,7 +54,7 @@ const handleImageError = () => {
         </h1>
 
         <p
-          class="text-slate-100 text-base leading-[1.6] text-left border-l-2 border-sky-500 pl-6 mb-10 drop-shadow-md"
+          class="text-slate-100 text-base leading-[1.6] text-left border-l-2 border-white pl-4 mb-10 drop-shadow-md bg-slate-900/70 backdrop-blur-sm rounded-lg p-4 md:bg-transparent md:backdrop-blur-none md:rounded-none md:p-0 md:border-l-0"
         >
           {{ heroContent.description }}
         </p>
