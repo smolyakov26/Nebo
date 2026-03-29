@@ -148,8 +148,8 @@ onMounted(() => {
                   :key="idx"
                   class="flex gap-6 items-start p-6 bg-slate-900/50 border border-white/5"
                 >
-                  <div class="text-2xl font-black text-orange-500 shrink-0 w-20">
-                    {{ item.time }}
+                  <div class="text-2xl font-black text-orange-500 shrink-0 w-12">
+                    {{ item.step }}
                   </div>
                   <div class="text-white font-medium">{{ item.activity }}</div>
                 </div>

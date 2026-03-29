@@ -13,11 +13,12 @@ export const tandemContent = {
     { icon: 'ShieldCheck', title: '100%', subtitle: 'Безопасность' },
   ],
   schedule: [
-    { time: '09:00', activity: 'Прибытие и регистрация' },
-    { time: '10:00', activity: 'Теоретический инструктаж' },
-    { time: '11:00', activity: 'Подготовка снаряжения' },
-    { time: '11:30', activity: 'Вылет и прыжок' },
-    { time: '12:00', activity: 'Посадка и награждение' },
+    { step: '01', activity: 'Прибытие и регистрация' },
+    { step: '02', activity: 'Прохождение медосмотра для допуска к прыжку' },
+    { step: '03', activity: 'Теоретический инструктаж' },
+    { step: '04', activity: 'Подготовка снаряжения' },
+    { step: '05', activity: 'Вылет и прыжок' },
+    { step: '06', activity: 'Посадка и награждение' },
   ],
   requirements: [
     'Возраст от 18 лет',
