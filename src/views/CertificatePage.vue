@@ -98,7 +98,7 @@ onMounted(() => {
           >
             {{ priceNote }}
           </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             <button
               v-for="(denom, idx) in denominations"
               :key="idx"
