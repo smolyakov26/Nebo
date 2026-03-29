@@ -30,12 +30,16 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
         class="py-24 bg-gradient-to-r from-rose-600 to-pink-600 text-white relative overflow-hidden"
       >
         <div class="absolute inset-0 opacity-10">
-          <img
-            src="/images/gift.jpg"
-            alt=""
-            class="w-full h-full object-cover"
-            @error="($event.target as HTMLImageElement).style.display = 'none'"
-          />
+          <picture>
+            <source srcset="/images-optimized/gift.webp" type="image/webp" />
+            <img
+              src="/images-optimized/gift.jpg"
+              alt=""
+              class="w-full h-full object-cover"
+              loading="lazy"
+              @error="($event.target as HTMLImageElement).style.display = 'none'"
+            />
+          </picture>
         </div>
         <div class="max-w-7xl mx-auto px-6 relative z-10">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

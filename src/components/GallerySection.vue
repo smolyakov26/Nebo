@@ -54,6 +54,14 @@ const currentModalItem = computed(() => {
   if (idx < 0 || idx >= filteredMedia.value.length) return null
   return filteredMedia.value[idx]
 })
+
+const getImageWebp = (src: string) => {
+  return src.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
+}
+
+const getImageJpeg = (src: string) => {
+  return src.replace('/images/', '/images-optimized/')
+}
 </script>
 
 <template>
@@ -102,12 +110,15 @@ const currentModalItem = computed(() => {
             class="relative aspect-video w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
             @click="openModal(0)"
           >
-            <img
-              v-if="featuredItem.type === 'image'"
-              :src="featuredItem.src"
-              :alt="featuredItem.title"
-              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            />
+            <picture v-if="featuredItem.type === 'image'">
+              <source :srcset="getImageWebp(featuredItem.src)" type="image/webp" />
+              <img
+                :src="getImageJpeg(featuredItem.src)"
+                :alt="featuredItem.title"
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+              />
+            </picture>
             <div v-else class="w-full h-full bg-slate-900 flex items-center justify-center">
               <div class="relative">
                 <Video class="w-8 h-8 text-sky-400 mb-2" />
@@ -137,12 +148,15 @@ const currentModalItem = computed(() => {
             class="relative aspect-video w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
             @click="openModal(index + 1)"
           >
-            <img
-              v-if="item.type === 'image'"
-              :src="item.src"
-              :alt="item.title"
-              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            />
+            <picture v-if="item.type === 'image'">
+              <source :srcset="getImageWebp(item.src)" type="image/webp" />
+              <img
+                :src="getImageJpeg(item.src)"
+                :alt="item.title"
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+              />
+            </picture>
             <div v-else class="w-full h-full bg-slate-900 flex items-center justify-center">
               <div class="relative">
                 <Video class="w-8 h-8 text-sky-400 mb-2" />
@@ -182,12 +196,14 @@ const currentModalItem = computed(() => {
       >
         <X class="w-5 h-5 text-white" />
       </button>
-      <img
-        v-if="currentModalItem.type === 'image'"
-        :src="currentModalItem.src"
-        :alt="currentModalItem.title"
-        class="w-full h-full max-h-[85vh] object-contain rounded-xl"
-      />
+      <picture v-if="currentModalItem.type === 'image'">
+        <source :srcset="getImageWebp(currentModalItem.src)" type="image/webp" />
+        <img
+          :src="getImageJpeg(currentModalItem.src)"
+          :alt="currentModalItem.title"
+          class="w-full h-full max-h-[85vh] object-contain rounded-xl"
+        />
+      </picture>
       <div v-else class="w-full h-64 bg-slate-800 rounded-xl flex items-center justify-center">
         <Video class="w-12 h-12 text-sky-400" />
       </div>

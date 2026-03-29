@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { heroContent } from '@/content/sections/hero'
 
 const imageLoaded = ref(true)
+
+const heroImageWebp = computed(() => {
+  // Convert /images/home/hero-sky.jpg to /images-optimized/home/hero-sky.webp
+  return heroContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
+})
+
+const heroImageJpeg = computed(() => {
+  return heroContent.image.replace('/images/', '/images-optimized/')
+})
 
 const scrollToFormats = () => {
   const element = document.getElementById('formats')
@@ -26,13 +35,16 @@ const handleImageError = () => {
     />
     <!-- Image background -->
     <div v-else class="absolute inset-0 z-0" aria-hidden="true">
-      <img
-        :src="heroContent.image"
-        alt=""
-        class="w-full h-full object-cover"
-        referrerPolicy="no-referrer"
-        @error="handleImageError"
-      />
+      <picture>
+        <source :srcset="heroImageWebp" type="image/webp" />
+        <img
+          :src="heroImageJpeg"
+          alt=""
+          class="w-full h-full object-cover"
+          referrerPolicy="no-referrer"
+          @error="handleImageError"
+        />
+      </picture>
       <!-- Editorial Gradient Overlay -->
       <!-- <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" /> -->
     </div>

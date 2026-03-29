@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import { Award, ShieldCheck, Plane, Users, Clock, CheckCircle } from 'lucide-vue-next'
@@ -22,6 +22,14 @@ const {
   cta,
   ctaSection,
 } = trainingContent
+
+const trainingImageWebp = computed(() => {
+  return trainingContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
+})
+
+const trainingImageJpeg = computed(() => {
+  return trainingContent.image.replace('/images/', '/images-optimized/')
+})
 
 const iconMap = { Award, ShieldCheck, Plane, Users, Clock, CheckCircle }
 
@@ -53,12 +61,16 @@ onMounted(() => {
     <main>
       <section ref="sectionRef" class="pt-40 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
-          <img
-            :src="trainingContent.image"
-            alt="Обучение прыжкам с парашютом"
-            class="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
+          <picture>
+            <source :srcset="trainingImageWebp" type="image/webp" />
+            <img
+              :src="trainingImageJpeg"
+              alt="Обучение прыжкам с парашютом"
+              class="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+              loading="lazy"
+            />
+          </picture>
           <div
             class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"
           />

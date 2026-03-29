@@ -2,11 +2,20 @@
 import { Award, ShieldCheck, ArrowRight } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
 import { experienceContent } from '@/content/sections/experience'
+import { computed } from 'vue'
 
 const iconMap: Record<string, typeof Award> = {
   Award,
   ShieldCheck,
 }
+
+const experienceImageWebp = computed(() => {
+  return experienceContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
+})
+
+const experienceImageJpeg = computed(() => {
+  return experienceContent.image.replace('/images/', '/images-optimized/')
+})
 </script>
 
 <template>
@@ -68,12 +77,16 @@ const iconMap: Record<string, typeof Award> = {
         <div class="lg:col-span-6 relative lg:pl-16 hidden md:block">
           <div class="relative aspect-square">
             <div class="absolute inset-0 border-2 border-sky-500/20 translate-x-4 translate-y-4" />
-            <img
-              :src="experienceContent.image"
-              alt="Обучение прыжкам с парашютом"
-              class="w-full h-full object-cover relative z-10 grayscale hover:grayscale-0 transition-all duration-700 shadow-xl"
-              referrerPolicy="no-referrer"
-            />
+            <picture>
+              <source :srcset="experienceImageWebp" type="image/webp" />
+              <img
+                :src="experienceImageJpeg"
+                alt="Обучение прыжкам с парашютом"
+                class="w-full h-full object-cover relative z-10 grayscale hover:grayscale-0 transition-all duration-700 shadow-xl"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </picture>
             <div
               class="absolute -bottom-4 -left-4 sm:-bottom-8 sm:-left-8 bg-orange-600 p-6 sm:p-8 z-20 skew-x-[-10deg] shadow-xl"
             >

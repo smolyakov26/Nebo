@@ -11,7 +11,15 @@ import GallerySection from '@/components/GallerySection.vue'
     <main>
       <section class="pt-32 pb-16 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
-          <img src="/images/gallery.jpg" alt="Галерея" class="w-full h-full object-cover" />
+          <picture>
+            <source srcset="/images-optimized/gallery.webp" type="image/webp" />
+            <img
+              src="/images-optimized/gallery.jpg"
+              alt="Галерея"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </picture>
           <div
             class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"
           />

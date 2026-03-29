@@ -1,0 +1,86 @@
+{
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-1.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-1.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-1.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-10.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-10.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-10.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-2.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-2.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-2.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-3.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-3.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-3.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-4.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-4.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-4.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-5.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-5.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-5.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-6.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-6.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-6.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-7.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-7.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-7.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-8.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-8.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-8.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery/skydiver-9.jpg": {
+    "compressed": "/public/images-optimized/gallery/skydiver-9.jpg",
+    "webp": "/public/images-optimized/gallery/skydiver-9.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gallery.jpg": {
+    "compressed": "/public/images-optimized/gallery.jpg",
+    "webp": "/public/images-optimized/gallery.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/gift.jpg": {
+    "compressed": "/public/images-optimized/gift.jpg",
+    "webp": "/public/images-optimized/gift.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/home/clouds2.jpg": {
+    "compressed": "/public/images-optimized/home/clouds2.jpg",
+    "webp": "/public/images-optimized/home/clouds2.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/home/eask.jpg": {
+    "compressed": "/public/images-optimized/home/eask.jpg",
+    "webp": "/public/images-optimized/home/eask.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/home/hero-sky.jpg": {
+    "compressed": "/public/images-optimized/home/hero-sky.jpg",
+    "webp": "/public/images-optimized/home/hero-sky.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/home/solo_main.jpg": {
+    "compressed": "/public/images-optimized/home/solo_main.jpg",
+    "webp": "/public/images-optimized/home/solo_main.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/home/sport_main.png": {
+    "compressed": "/public/images-optimized/home/sport_main.png",
+    "webp": "/public/images-optimized/home/sport_main.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/home/tandem_main_page.jpg": {
+    "compressed": "/public/images-optimized/home/tandem_main_page.jpg",
+    "webp": "/public/images-optimized/home/tandem_main_page.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/home/training.jpg": {
+    "compressed": "/public/images-optimized/home/training.jpg",
+    "webp": "/public/images-optimized/home/training.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/og-image.jpg": {
+    "compressed": "/public/images-optimized/og-image.jpg",
+    "webp": "/public/images-optimized/og-image.webp"
+  },
+  "/home/alx/land_sky_vue/public/images/sertificate.jpg": {
+    "compressed": "/public/images-optimized/sertificate.jpg",
+    "webp": "/public/images-optimized/sertificate.webp"
+  }
+}

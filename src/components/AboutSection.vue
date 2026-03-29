@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Shield, Users, Plane, Award } from 'lucide-vue-next'
 import { aboutContent } from '@/content/sections/about'
 
@@ -11,8 +11,16 @@ const iconMap: Record<string, typeof Award> = {
   Users,
   Shield,
   Award,
-  Plane
+  Plane,
 }
+
+const aboutImageWebp = computed(() => {
+  return aboutContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
+})
+
+const aboutImageJpeg = computed(() => {
+  return aboutContent.image.replace('/images/', '/images-optimized/')
+})
 
 onMounted(() => {
   if (sectionRef.value) {
@@ -24,7 +32,7 @@ onMounted(() => {
           }
         })
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     )
     observer.observe(sectionRef.value)
   }
@@ -40,38 +48,40 @@ onUnmounted(() => {
 
 <template>
   <section id="about" ref="sectionRef" class="py-32 bg-slate-950 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none" aria-hidden="true" />
+    <div
+      class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none"
+      aria-hidden="true"
+    />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div
-          :class="[
-            'relative',
-            isVisible ? 'animate-slide-in-left' : 'opacity-0'
-          ]"
-        >
+        <div :class="['relative', isVisible ? 'animate-slide-in-left' : 'opacity-0']">
           <div class="relative">
-            <img
-              :src="aboutContent.image"
-              :alt="aboutContent.imageAlt"
-              class="w-full rounded-2xl shadow-2xl"
-              referrerPolicy="no-referrer"
-            />
-            <div class="absolute -bottom-8 -right-8 bg-sky-600 text-white p-8 rounded-2xl shadow-xl">
+            <picture>
+              <source :srcset="aboutImageWebp" type="image/webp" />
+              <img
+                :src="aboutImageJpeg"
+                :alt="aboutContent.imageAlt"
+                class="w-full rounded-2xl shadow-2xl"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </picture>
+            <div
+              class="absolute -bottom-8 -right-8 bg-sky-600 text-white p-8 rounded-2xl shadow-xl"
+            >
               <div class="text-5xl font-black mb-1">{{ aboutContent.yearsExperience }}</div>
-              <div class="text-[11px] font-bold uppercase tracking-widest">{{ aboutContent.yearsLabel }}</div>
+              <div class="text-[11px] font-bold uppercase tracking-widest">
+                {{ aboutContent.yearsLabel }}
+              </div>
             </div>
           </div>
         </div>
 
-        <div
-          :class="[
-            'space-y-8',
-            isVisible ? 'animate-slide-in-right' : 'opacity-0'
-          ]"
-        >
+        <div :class="['space-y-8', isVisible ? 'animate-slide-in-right' : 'opacity-0']">
           <div>
-            <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
+            <span
+              class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
               >{{ aboutContent.badge }}</span
             >
             <h2

@@ -9,6 +9,17 @@ const isVisible = ref(false)
 const sectionRef = ref<HTMLElement | null>(null)
 let observer: IntersectionObserver | null = null
 
+const getImageWebp = (src: string) => {
+  return src
+    .replace('/images/', '/images-optimized/')
+    .replace('.jpg', '.webp')
+    .replace('.png', '.webp')
+}
+
+const getImageJpeg = (src: string) => {
+  return src.replace('/images/', '/images-optimized/')
+}
+
 onMounted(() => {
   if (sectionRef.value) {
     observer = new IntersectionObserver(
@@ -19,7 +30,7 @@ onMounted(() => {
           }
         })
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     )
     observer.observe(sectionRef.value)
   }
@@ -39,9 +50,9 @@ onUnmounted(() => {
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="text-center md:text-left mb-16 md:mb-24">
-        <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
-          >{{ formatsContent.badge }}</span
-        >
+        <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block">{{
+          formatsContent.badge
+        }}</span>
         <h2
           class="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 md:mb-8 uppercase italic leading-none"
         >
@@ -60,18 +71,22 @@ onUnmounted(() => {
           :style="{ animationDelay: `${idx * 0.1}s` }"
           :class="[
             'group relative bg-slate-900/50 border border-white/10 overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer focus-within:ring-2 focus-within:ring-sky-500',
-            isVisible ? 'animate-slide-up' : 'opacity-0'
+            isVisible ? 'animate-slide-up' : 'opacity-0',
           ]"
           tabindex="0"
           role="article"
         >
           <div class="aspect-[4/5] overflow-hidden relative">
-            <img
-              :src="format.image"
-              :alt="format.title"
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-              referrerPolicy="no-referrer"
-            />
+            <picture>
+              <source :srcset="getImageWebp(format.image)" type="image/webp" />
+              <img
+                :src="getImageJpeg(format.image)"
+                :alt="format.title"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </picture>
             <div
               :class="`absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent opacity-90`"
             />
@@ -81,7 +96,9 @@ onUnmounted(() => {
               <h3 class="text-2xl sm:text-3xl font-black text-white mb-1 sm:mb-2 uppercase italic">
                 {{ format.title }}
               </h3>
-              <p class="text-sky-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest mb-3 sm:mb-4">
+              <p
+                class="text-sky-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest mb-3 sm:mb-4"
+              >
                 {{ format.subtitle }}
               </p>
               <p
@@ -94,7 +111,9 @@ onUnmounted(() => {
                 <div class="flex gap-3 sm:gap-6">
                   <div v-for="(stat, sIdx) in format.stats" :key="sIdx">
                     <div class="text-white font-black text-sm sm:text-lg">{{ stat.value }}</div>
-                    <div class="text-[8px] sm:text-[9px] text-slate-400 uppercase font-bold">{{ stat.label }}</div>
+                    <div class="text-[8px] sm:text-[9px] text-slate-400 uppercase font-bold">
+                      {{ stat.label }}
+                    </div>
                   </div>
                 </div>
                 <div class="text-white font-black text-sm sm:text-base">{{ format.price }}</div>
@@ -132,15 +151,15 @@ onUnmounted(() => {
     animation: none;
     opacity: 1;
   }
-  
+
   article img {
     transition: none;
   }
-  
+
   article p.text-slate-300 {
     opacity: 1;
   }
-  
+
   article .translate-y-full {
     transform: translateY(0);
   }
