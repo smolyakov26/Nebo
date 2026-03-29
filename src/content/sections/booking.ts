@@ -9,19 +9,19 @@ export const bookingContent = {
     jumpType: 'Тип прыжка',
     date: 'Предпочитаемая дата',
     message: 'Комментарий',
-    messagePlaceholder: 'Дополнительные вопросы...'
+    messagePlaceholder: 'Дополнительные вопросы...',
   },
   jumpTypes: [
     { value: 'tandem', label: 'Тандем прыжок' },
     { value: 'solo', label: 'Одиночный прыжок' },
     { value: 'sport', label: 'Спортивный прыжок' },
-    { value: 'training', label: 'Обучение AFF' }
+    { value: 'training', label: 'Обучение' },
   ],
   submit: 'Отправить заявку',
   submitting: 'Отправка...',
   privacy: 'Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности',
   success: {
     title: 'Заявка отправлена!',
-    message: 'Мы свяжемся с вами в ближайшее время'
-  }
+    message: 'Мы свяжемся с вами в ближайшее время',
+  },
 }
