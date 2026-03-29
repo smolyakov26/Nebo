@@ -34,7 +34,7 @@ const handleImageError = () => {
         @error="handleImageError"
       />
       <!-- Editorial Gradient Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+      <!-- <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" /> -->
     </div>
 
     <div class="relative z-10 w-full max-w-7xl mx-auto px-6">
@@ -50,10 +50,7 @@ const handleImageError = () => {
           style="text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6)"
         >
           {{ heroContent.title }} <br />
-          <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600 animate-gradient"
-            >{{ heroContent.titleAccent }}</span
-          >
+          <span class="text-white">{{ heroContent.titleAccent }}</span>
         </h1>
 
         <p
