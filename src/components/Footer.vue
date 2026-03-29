@@ -27,8 +27,18 @@ import { footerContent } from '@/content/sections/footer'
           </h4>
           <ul class="space-y-2 sm:space-y-4 text-sm text-slate-400">
             <li v-for="(item, idx) in footerContent.navigation" :key="idx">
-              <a v-if="item.href.startsWith('#')" :href="item.href" class="hover:text-white transition-colors cursor-pointer">{{ item.label }}</a>
-              <RouterLink v-else :to="item.href" class="hover:text-white transition-colors cursor-pointer">{{ item.label }}</RouterLink>
+              <a
+                v-if="item.href.startsWith('#')"
+                :href="item.href"
+                class="hover:text-white transition-colors cursor-pointer"
+                >{{ item.label }}</a
+              >
+              <RouterLink
+                v-else
+                :to="item.href"
+                class="hover:text-white transition-colors cursor-pointer"
+                >{{ item.label }}</RouterLink
+              >
             </li>
           </ul>
         </div>
@@ -43,17 +53,29 @@ import { footerContent } from '@/content/sections/footer'
               {{ footerContent.contacts?.[0]?.value }}
             </li>
             <li>
-              <a v-if="footerContent.contacts?.[1]" :href="footerContent.contacts[1].href" class="hover:text-white transition-colors cursor-pointer">{{ footerContent.contacts[1].value }}</a>
+              <a
+                v-if="footerContent.contacts?.[1]"
+                :href="footerContent.contacts[1].href"
+                class="hover:text-white transition-colors cursor-pointer"
+                >{{ footerContent.contacts[1].value }}</a
+              >
             </li>
             <li>
-              <a v-if="footerContent.contacts?.[2]" :href="footerContent.contacts[2].href" class="hover:text-white transition-colors cursor-pointer">{{ footerContent.contacts[2].value }}</a>
+              <a
+                v-if="footerContent.contacts?.[2]"
+                :href="footerContent.contacts[2].href"
+                class="hover:text-white transition-colors cursor-pointer"
+                >{{ footerContent.contacts[2].value }}</a
+              >
             </li>
             <li v-if="footerContent.contacts?.[3]">{{ footerContent.contacts[3].value }}</li>
           </ul>
         </div>
 
         <div class="text-center sm:text-left sm:col-span-2 md:col-span-2">
-          <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-sky-500 mb-4 sm:mb-6">Соцсети</h4>
+          <h4 class="text-[11px] font-bold uppercase tracking-[0.3em] text-sky-500 mb-4 sm:mb-6">
+            Соцсети
+          </h4>
           <div class="flex gap-4 justify-center sm:justify-start">
             <a
               v-for="social in footerContent.socials"
@@ -74,9 +96,6 @@ import { footerContent } from '@/content/sections/footer'
         class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-8 pt-8 sm:pt-12 border-t border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500"
       >
         <p>{{ footerContent.copyright }}</p>
-        <div class="flex gap-6 sm:gap-12">
-          <a v-for="(link, idx) in footerContent.links" :key="idx" :href="link.href" class="hover:text-white transition-colors cursor-pointer">{{ link.label }}</a>
-        </div>
       </div>
     </div>
   </footer>
