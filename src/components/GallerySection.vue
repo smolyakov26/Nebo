@@ -37,6 +37,10 @@ const closeModal = () => {
   modalIndex.value = -1
 }
 
+const openModal = (index: number) => {
+  modalIndex.value = index
+}
+
 const filteredMedia = computed(() => {
   return galleryContent.media.filter(
     (item) => currentFilter.value === 'all' || item.category === currentFilter.value,
@@ -45,6 +49,7 @@ const filteredMedia = computed(() => {
 
 const featuredItem = computed(() => filteredMedia.value[0])
 const gridItems = computed(() => filteredMedia.value.slice(1))
+const currentModalItem = computed(() => filteredMedia.value[modalIndex.value])
 </script>
 
 <template>
@@ -90,7 +95,8 @@ const gridItems = computed(() => filteredMedia.value.slice(1))
         <!-- Large Featured Item -->
         <div v-if="featuredItem" class="col-span-1 lg:col-span-2 group">
           <div
-            class="relative aspect-w-16 aspect-h-9 w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300"
+            class="relative aspect-w-16 aspect-h-9 w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
+            @click="openModal(0)"
           >
             <img
               v-if="featuredItem.type === 'image'"
@@ -124,7 +130,8 @@ const gridItems = computed(() => filteredMedia.value.slice(1))
         <!-- Regular Grid Items -->
         <div v-for="(item, index) in gridItems" :key="index" class="group">
           <div
-            class="relative aspect-w-16 aspect-h-9 w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300"
+            class="relative aspect-w-16 aspect-h-9 w-full rounded-2xl overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
+            @click="openModal(index + 1)"
           >
             <img
               v-if="item.type === 'image'"
@@ -158,20 +165,32 @@ const gridItems = computed(() => filteredMedia.value.slice(1))
     </div>
   </section>
 
-  <!-- Empty State for Modal (placeholder for future implementation) -->
+  <!-- Modal -->
   <div
-    v-if="modalIndex >= 0"
-    class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/75 backdrop-blur-sm"
+    v-if="modalIndex >= 0 && filteredMedia[modalIndex]"
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 backdrop-blur-sm"
     @click="closeModal"
   >
-    <div class="relative max-w-4xl max-h-[90vh] w-full p-8" @click.stop>
+    <div class="relative max-w-5xl max-h-[90vh] w-full p-4" @click.stop>
       <button
         @click="closeModal"
-        class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+        class="absolute top-2 right-2 w-10 h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 z-10"
       >
         <X class="w-5 h-5 text-white" />
       </button>
-      <p class="text-white text-center">Модальное окно готово к использованию</p>
+      <img
+        v-if="currentModalItem?.type === 'image'"
+        :src="currentModalItem.src"
+        :alt="currentModalItem.title"
+        class="w-full h-full max-h-[85vh] object-contain rounded-xl"
+      />
+      <div v-else class="w-full h-64 bg-slate-800 rounded-xl flex items-center justify-center">
+        <Video class="w-12 h-12 text-sky-400" />
+      </div>
+      <div class="text-center mt-4">
+        <h3 class="text-white text-lg font-bold">{{ currentModalItem?.title }}</h3>
+        <p class="text-slate-400 text-sm">{{ currentModalItem?.description }}</p>
+      </div>
     </div>
   </div>
 </template>

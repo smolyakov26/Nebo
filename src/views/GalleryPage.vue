@@ -11,12 +11,7 @@ import GallerySection from '@/components/GallerySection.vue'
     <main>
       <section class="pt-32 pb-16 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
-          <img
-            src="https://picsum.photos/seed/gallery-hero/1920/600"
-            alt="Галерея"
-            class="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
+          <img src="/images/gallery.jpg" alt="Галерея" class="w-full h-full object-cover" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"
           />

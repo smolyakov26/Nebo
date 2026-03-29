@@ -32,10 +32,9 @@ const { badge: certBadge, title: certTitle, description: certDescription, cta } 
       >
         <div class="absolute inset-0 opacity-10">
           <img
-            src="https://picsum.photos/seed/gift-sky/1920/600"
+            src="/images/gift.jpg"
             alt=""
             class="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
             @error="($event.target as HTMLImageElement).style.display = 'none'"
           />
         </div>

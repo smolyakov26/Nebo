@@ -55,12 +55,7 @@ onMounted(() => {
     <main>
       <section ref="sectionRef" class="pt-40 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
-          <img
-            src="https://picsum.photos/seed/tandem-hero/1920/1080"
-            alt="Тандем прыжок"
-            class="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
+          <img src="/images/tandem.jpg" alt="Тандем прыжок" class="w-full h-full object-cover" />
           <div
             class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"
           />
@@ -209,10 +204,15 @@ onMounted(() => {
             </button>
             <a
               :href="PHONE.link"
-              class="border-2 border-white px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-orange-600 transition-all skew-x-[-10deg] cursor-pointer inline-block"
+              class="lg:hidden border-2 border-white px-12 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-orange-600 transition-all skew-x-[-10deg] cursor-pointer inline-block"
             >
               <span class="inline-block skew-x-[10deg]">{{ cta.secondary }}</span>
             </a>
+            <span
+              class="hidden lg:inline text-white text-[11px] font-black uppercase tracking-widest"
+            >
+              {{ PHONE.display }}
+            </span>
           </div>
         </div>
       </section>

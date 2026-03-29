@@ -54,10 +54,9 @@ onMounted(() => {
       <section ref="sectionRef" class="pt-40 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
           <img
-            src="https://picsum.photos/seed/solo-hero/1920/1080"
+            src="/images/home/solo_main.jpg"
             alt="Соло прыжок"
             class="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"
