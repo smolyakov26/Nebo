@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
-import { contactsContent } from '@/content/sections/contacts'
+import { contactsContent } from '@/content'
 
 const { openModal } = useBookingModal()
 
@@ -132,7 +132,7 @@ onUnmounted(() => {
             width="100%"
             height="100%"
             style="border: 0; background: #1e293b"
-            title="Карта НЕБО КАВКАЗ"
+            title="Карта НЕБО КАВКАЗА"
             loading="lazy"
           />
         </div>

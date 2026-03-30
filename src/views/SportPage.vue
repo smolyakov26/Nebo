@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import {
@@ -18,6 +19,8 @@ import {
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { sportContent } from '@/content'
+import { useSeoMeta, useHead } from '@unhead/vue'
+import { useSchemaOrg } from '@/composables/useSchemaOrg'
 
 const { openModal } = useBookingModal()
 const {
@@ -34,6 +37,31 @@ const {
   ctaSection,
   additionalInfo,
 } = sportContent
+
+useSeoMeta({
+  title: 'Спортивные прыжки с парашютом — от 2 000 ₽ | НЕБО КАВКАЗА',
+  description:
+    'Самостоятельные прыжки для парашютистов с лицензией. Высота 1200-3000м, самолёт АН-2. Необходимые документы и допуски.',
+  ogTitle: 'Спортивные прыжки с парашютом — от 2 000 ₽',
+  ogDescription: 'Самостоятельные прыжки для лицензированных парашютистов. Аэродром Ессентуки.',
+  ogImage: '/images/og-image.svg',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://nebo-kavkaz.ru/sport' }],
+})
+
+const { addBreadcrumb, addService } = useSchemaOrg()
+addBreadcrumb([
+  { name: 'Главная', url: 'https://nebo-kavkaz.ru' },
+  { name: 'Спорт прыжок', url: 'https://nebo-kavkaz.ru/sport' },
+])
+addService({
+  name: 'Спортивные прыжки с парашютом',
+  description:
+    'Самостоятельные прыжки для парашютистов с действующей лицензией. Высота 1200-3000м.',
+  price: '2000',
+})
 
 const iconMap = {
   IdCard,
@@ -209,6 +237,16 @@ onMounted(() => {
                 </ul>
               </div>
             </div>
+          </div>
+
+          <div class="mt-8 p-6 bg-emerald-600/20 border border-emerald-500/30 text-center">
+            <p class="text-slate-300 text-sm mb-4">Хотите начать с нуля и получить лицензию?</p>
+            <RouterLink
+              to="/training"
+              class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 text-[11px] font-black uppercase tracking-widest transition-all rounded-full cursor-pointer"
+            >
+              Программа обучения →
+            </RouterLink>
           </div>
         </div>
       </section>

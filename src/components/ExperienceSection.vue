@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Award, ShieldCheck, ArrowRight } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
-import { experienceContent } from '@/content/sections/experience'
+import { experienceContent } from '@/content'
 import { computed } from 'vue'
 
 const iconMap: Record<string, typeof Award> = {

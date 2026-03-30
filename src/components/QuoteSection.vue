@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { quoteContent } from '@/content/sections/hero'
+import { quoteContent } from '@/content'
 
 const quoteRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
@@ -15,7 +15,7 @@ onMounted(() => {
           }
         })
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     )
     observer.observe(quoteRef.value)
   }
@@ -29,12 +29,14 @@ onMounted(() => {
       <p
         :class="[
           'text-3xl md:text-5xl font-black text-white leading-tight uppercase italic',
-          isVisible ? 'animate-fade-in' : 'opacity-0'
+          isVisible ? 'animate-fade-in' : 'opacity-0',
         ]"
       >
         "{{ quoteContent.text }}"
       </p>
-      <div :class="['w-24 h-1 bg-sky-500 mx-auto mt-12', isVisible ? 'animate-scale-in' : 'scale-0']" />
+      <div
+        :class="['w-24 h-1 bg-sky-500 mx-auto mt-12', isVisible ? 'animate-scale-in' : 'scale-0']"
+      />
     </div>
   </section>
 </template>

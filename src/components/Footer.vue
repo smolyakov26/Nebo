@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { Zap, MapPin } from 'lucide-vue-next'
-import { footerContent } from '@/content/sections/footer'
+import { footerContent } from '@/content'
 </script>
 
 <template>

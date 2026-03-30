@@ -8,50 +8,52 @@ import CertificatePage from '@/views/CertificatePage.vue'
 import GalleryPage from '@/views/GalleryPage.vue'
 import NotFoundPage from '@/views/NotFoundPage.vue'
 
+export const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomePage,
+  },
+  {
+    path: '/tandem',
+    name: 'tandem',
+    component: TandemPage,
+  },
+  {
+    path: '/solo',
+    name: 'solo',
+    component: SoloPage,
+  },
+  {
+    path: '/sport',
+    name: 'sport',
+    component: SportPage,
+  },
+  {
+    path: '/training',
+    name: 'training',
+    component: TrainingPage,
+  },
+  {
+    path: '/certificate',
+    name: 'certificate',
+    component: CertificatePage,
+  },
+  {
+    path: '/gallery',
+    name: 'gallery',
+    component: GalleryPage,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: NotFoundPage,
+  },
+]
+
 const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomePage,
-    },
-    {
-      path: '/tandem',
-      name: 'tandem',
-      component: TandemPage,
-    },
-    {
-      path: '/solo',
-      name: 'solo',
-      component: SoloPage,
-    },
-    {
-      path: '/sport',
-      name: 'sport',
-      component: SportPage,
-    },
-    {
-      path: '/training',
-      name: 'training',
-      component: TrainingPage,
-    },
-    {
-      path: '/certificate',
-      name: 'certificate',
-      component: CertificatePage,
-    },
-    {
-      path: '/gallery',
-      name: 'gallery',
-      component: GalleryPage,
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'not-found',
-      component: NotFoundPage,
-    },
-  ],
+  routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition

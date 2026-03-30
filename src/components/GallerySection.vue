@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { galleryContent } from '@/content/sections/gallery'
+import { galleryContent } from '@/content'
 import { X, Camera, Video } from 'lucide-vue-next'
 
 const isVisible = ref(false)

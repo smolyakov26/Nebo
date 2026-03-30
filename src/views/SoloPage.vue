@@ -7,6 +7,8 @@ import { Ruler, Wind, Compass, CircleDot, CheckCircle, Target } from 'lucide-vue
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { soloContent } from '@/content'
+import { useSeoMeta, useHead } from '@unhead/vue'
+import { useSchemaOrg } from '@/composables/useSchemaOrg'
 
 const { openModal } = useBookingModal()
 const {
@@ -22,6 +24,30 @@ const {
   cta,
   ctaSection,
 } = soloContent
+
+useSeoMeta({
+  title: 'Ознакомительный прыжок с парашютом — 7 500 ₽ | НЕБО КАВКАЗА',
+  description:
+    'Первый самостоятельный прыжок по программе ДОСААФ №1-2. Круглый парашют Д-10, высота 800м. С 16 лет. Наземная подготовка включена.',
+  ogTitle: 'Ознакомительный прыжок с парашютом — 7 500 ₽',
+  ogDescription: 'Первый самостоятельный прыжок по программе ДОСААФ. С 16 лет, с подготовкой.',
+  ogImage: '/images/og-image.svg',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://nebo-kavkaz.ru/solo' }],
+})
+
+const { addBreadcrumb, addService } = useSchemaOrg()
+addBreadcrumb([
+  { name: 'Главная', url: 'https://nebo-kavkaz.ru' },
+  { name: 'Соло прыжок', url: 'https://nebo-kavkaz.ru/solo' },
+])
+addService({
+  name: 'Ознакомительный прыжок с парашютом',
+  description: 'Первый самостоятельный прыжок по программе ДОСААФ №1-2 с высоты 800 метров.',
+  price: '7500',
+})
 
 const iconMap = { Ruler, Wind, Compass, CircleDot, CheckCircle, Target }
 

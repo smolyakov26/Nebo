@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Shield, Users, Plane, Award } from 'lucide-vue-next'
-import { aboutContent } from '@/content/sections/about'
+import { aboutContent } from '@/content'
 
 const isVisible = ref(false)
 const sectionRef = ref<HTMLElement | null>(null)

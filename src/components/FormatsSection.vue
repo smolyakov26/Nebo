@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useBookingModal } from '@/composables/useBookingModal'
-import { formatsContent } from '@/content/sections/formats'
+import { formatsContent } from '@/content'
 
 const { openModal } = useBookingModal()
 const isVisible = ref(false)

@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { X, User, Phone, Gift, MessageSquare, Check, AlertCircle } from 'lucide-vue-next'
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { useEmail } from '@/composables/useEmail'
-import { certificateModalContent } from '@/content/sections/certificateModal'
+import { certificateModalContent } from '@/content'
 import { PHONE_REGEX, FORM_TYPES } from '@/constants'
 
 const { isOpen, selectedDenomination, closeModal } = useCertificateModal()

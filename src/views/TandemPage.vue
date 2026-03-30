@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import { Clock, Ruler, Wind, ShieldCheck, Users } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { tandemContent } from '@/content'
+import { useSeoMeta, useHead } from '@unhead/vue'
+import { useSchemaOrg } from '@/composables/useSchemaOrg'
 
 const { openModal } = useBookingModal()
 const {
@@ -24,6 +27,31 @@ const {
   cta,
   ctaSection,
 } = tandemContent
+
+useSeoMeta({
+  title: 'Тандем прыжок с парашютом — от 17 000 ₽ | НЕБО КАВКАЗА',
+  description:
+    '60 секунд свободного падения с высоты 3000 метров в паре с опытным инструктором. Без опыта, вес до 85 кг. Бронируйте тандем-прыжок в Ессентуках.',
+  ogTitle: 'Тандем прыжок с парашютом — от 17 000 ₽',
+  ogDescription:
+    '60 секунд свободного падения с 3000м. Без опыта, с инструктором. Аэродром Ессентуки.',
+  ogImage: '/images/og-image.svg',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://nebo-kavkaz.ru/tandem' }],
+})
+
+const { addBreadcrumb, addService } = useSchemaOrg()
+addBreadcrumb([
+  { name: 'Главная', url: 'https://nebo-kavkaz.ru' },
+  { name: 'Тандем прыжок', url: 'https://nebo-kavkaz.ru/tandem' },
+])
+addService({
+  name: 'Тандем прыжок с парашютом',
+  description: '60 секунд свободного падения с высоты 3000 метров в паре с опытным инструктором.',
+  price: '17000',
+})
 
 const iconMap = { Clock, Ruler, Wind, ShieldCheck, Users }
 
@@ -186,9 +214,15 @@ onMounted(() => {
                   <Users class="w-8 h-8 text-orange-500" />
                   <span class="text-xl font-bold text-white">{{ groupTitle }}</span>
                 </div>
-                <p class="text-slate-300 text-sm leading-relaxed">
+                <p class="text-slate-300 text-sm leading-relaxed mb-4">
                   {{ groupDescription }}
                 </p>
+                <RouterLink
+                  to="/certificate"
+                  class="inline-block text-orange-400 hover:text-orange-300 text-sm font-medium underline"
+                >
+                  Или подарите сертификат →
+                </RouterLink>
               </div>
             </div>
           </div>

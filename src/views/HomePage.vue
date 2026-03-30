@@ -11,11 +11,34 @@ import { Gift, Heart } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { homeCtaContent, certificateContent } from '@/content'
+import { useSeoMeta, useHead } from '@unhead/vue'
+import { useSchemaOrg } from '@/composables/useSchemaOrg'
 
 const { openModal } = useBookingModal()
 const { openModal: openCertModal } = useCertificateModal()
 const { badge, title, titleAccent, primaryCta } = homeCtaContent
 const { badge: certBadge, title: certTitle, description: certDescription, cta } = certificateContent
+
+useSeoMeta({
+  title: 'НЕБО КАВКАЗА — Прыжки с парашютом в Ессентуках',
+  description:
+    'Крупнейшая дропзона Кавказа. Тандем прыжки с 3000м, обучение парашютизму, спортивные прыжки. Аэродром в Ессентуках, Ставропольский край.',
+  ogTitle: 'НЕБО КАВКАЗА — Прыжки с парашютом в Ессентуках',
+  ogDescription:
+    'Крупнейшая дропзона Кавказа. Тандем, соло, спорт прыжки, обучение. Аэродром в Ессентуках.',
+  ogImage: '/images/og-image.svg',
+  ogUrl: 'https://nebo-kavkaz.ru',
+  ogType: 'website',
+  ogLocale: 'ru_RU',
+  robots: 'index, follow',
+})
+
+const { addLocalBusiness } = useSchemaOrg()
+addLocalBusiness()
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://nebo-kavkaz.ru' }],
+})
 </script>
 
 <template>

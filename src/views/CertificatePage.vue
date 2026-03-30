@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import { Gift, Calendar, Sparkles, RefreshCw, CheckCircle, Heart } from 'lucide-vue-next'
 import { useCertificateModal } from '@/composables/useCertificateModal'
 import { PHONE } from '@/constants'
 import { certificateContent } from '@/content'
+import { useSeoMeta, useHead } from '@unhead/vue'
+import { useSchemaOrg } from '@/composables/useSchemaOrg'
 
 const { openModal } = useCertificateModal()
 const {
@@ -20,6 +23,25 @@ const {
   cta,
   ctaSection,
 } = certificateContent
+
+useSeoMeta({
+  title: 'Подарочный сертификат на прыжок с парашютом | НЕБО КАВКАЗА',
+  description:
+    'Подарочный сертификат на прыжок с парашютом — идеальный подарок. Электронный или печатный формат. Доставка в день заказа.',
+  ogTitle: 'Подарочный сертификат на прыжок с парашютом',
+  ogDescription: 'Идеальный подарок для тех, кто мечтает о небе. Электронный или печатный формат.',
+  ogImage: '/images/og-image.svg',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://nebo-kavkaz.ru/certificate' }],
+})
+
+const { addBreadcrumb } = useSchemaOrg()
+addBreadcrumb([
+  { name: 'Главная', url: 'https://nebo-kavkaz.ru' },
+  { name: 'Сертификат', url: 'https://nebo-kavkaz.ru/certificate' },
+])
 
 const iconMap = { Gift, Calendar, Sparkles, RefreshCw, CheckCircle }
 
@@ -164,10 +186,16 @@ onMounted(() => {
             <Heart class="w-8 h-8 text-rose-500" />
             <span class="text-2xl font-bold text-white">Отличный подарок</span>
           </div>
-          <p class="text-slate-300 text-lg leading-relaxed mb-8">
+          <p class="text-slate-300 text-lg leading-relaxed mb-4">
             Прыжок с парашютом — это незабываемый опыт, который останется в памяти навсегда.
-            Подарите близкому человеку возможность испытать настоящий полёт!
           </p>
+          <p class="text-slate-400 text-sm mb-8">Хотите испытать адреналин лично?</p>
+          <RouterLink
+            to="/tandem"
+            class="inline-block bg-rose-600 hover:bg-rose-500 text-white px-8 py-4 text-[11px] font-black uppercase tracking-widest transition-all rounded-full cursor-pointer"
+          >
+            Забронировать тандем-прыжок
+          </RouterLink>
         </div>
       </section>
 

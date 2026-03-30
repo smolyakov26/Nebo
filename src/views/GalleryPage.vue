@@ -2,6 +2,27 @@
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import GallerySection from '@/components/GallerySection.vue'
+import { useSeoMeta, useHead } from '@unhead/vue'
+import { useSchemaOrg } from '@/composables/useSchemaOrg'
+
+useSeoMeta({
+  title: 'Фото и видео прыжков с парашютом — НЕБО КАВКАЗА',
+  description:
+    'Галерея тандем, соло и спортивных прыжков нашего аэроклуба. Лучшие моменты свободного падения.',
+  ogTitle: 'Фото и видео прыжков с парашютом — НЕБО КАВКАЗА',
+  ogDescription: 'Галерея лучших моментов из жизни аэроклуба НЕБО КАВКАЗА.',
+  ogImage: '/images/og-image.svg',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://nebo-kavkaz.ru/gallery' }],
+})
+
+const { addBreadcrumb } = useSchemaOrg()
+addBreadcrumb([
+  { name: 'Главная', url: 'https://nebo-kavkaz.ru' },
+  { name: 'Галерея', url: 'https://nebo-kavkaz.ru/gallery' },
+])
 </script>
 
 <template>

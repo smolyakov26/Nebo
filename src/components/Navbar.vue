@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { Zap, Menu, X } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
-import { formatsContent } from '@/content/sections/formats'
+import { formatsContent } from '@/content'
 
 const route = useRoute()
 const isScrolled = ref(false)
@@ -81,7 +81,7 @@ const handleMobileCallback = () => {
           @click.prevent="scrollToTop"
         >
           <Zap class="w-6 h-6 fill-sky-500 text-sky-500" />
-          <span>НЕБО-КАВКАЗА</span>
+          <span>НЕБО КАВКАЗА</span>
         </a>
         <div
           class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400"

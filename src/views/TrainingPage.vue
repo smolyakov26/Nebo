@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
+import { RouterLink } from 'vue-router'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import { Award, ShieldCheck, Plane, Users, Clock, CheckCircle } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { PHONE } from '@/constants'
 import { trainingContent } from '@/content'
+import { useSeoMeta, useHead } from '@unhead/vue'
+import { useSchemaOrg } from '@/composables/useSchemaOrg'
 
 const { openModal } = useBookingModal()
 const {
@@ -22,6 +25,31 @@ const {
   cta,
   ctaSection,
 } = trainingContent
+
+useSeoMeta({
+  title: 'Обучение парашютному спорту — от 30 000 ₽ | НЕБО КАВКАЗА',
+  description:
+    'Программа ДОСААФ №2 — базовая подготовка парашютиста. 10 часов теории, практические прыжки с круглым парашютом и системой «Крыло». Группы до 6 человек.',
+  ogTitle: 'Обучение парашютному спорту — от 30 000 ₽',
+  ogDescription: 'Программа ДОСААФ №2. 10 часов теории + практические прыжки. Группы до 6 человек.',
+  ogImage: '/images/og-image.svg',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://nebo-kavkaz.ru/training' }],
+})
+
+const { addBreadcrumb, addService } = useSchemaOrg()
+addBreadcrumb([
+  { name: 'Главная', url: 'https://nebo-kavkaz.ru' },
+  { name: 'Обучение', url: 'https://nebo-kavkaz.ru/training' },
+])
+addService({
+  name: 'Обучение парашютному спорту',
+  description:
+    'Программа ДОСААФ №2 — базовая подготовка парашютиста. 10 часов теории + практические прыжки.',
+  price: '30000',
+})
 
 const trainingImageWebp = computed(() => {
   return trainingContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
@@ -191,6 +219,18 @@ onMounted(() => {
                     {{ item }}
                   </li>
                 </ul>
+              </div>
+
+              <div class="p-6 bg-sky-600/20 border border-sky-500/30">
+                <p class="text-slate-300 text-sm mb-4">
+                  Хотите сначала попробовать ознакомительный прыжок?
+                </p>
+                <RouterLink
+                  to="/solo"
+                  class="inline-block bg-sky-600 hover:bg-sky-500 text-white px-6 py-3 text-[11px] font-black uppercase tracking-widest transition-all rounded-full cursor-pointer"
+                >
+                  Ознакомительный прыжок →
+                </RouterLink>
               </div>
             </div>
           </div>

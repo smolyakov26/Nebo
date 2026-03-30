@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { heroContent } from '@/content/sections/hero'
+import { heroContent } from '@/content'
 
 const imageLoaded = ref(true)
 
