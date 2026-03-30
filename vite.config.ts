@@ -13,7 +13,7 @@ export default defineConfig({
     tailwindcss(),
     Sitemap({
       hostname: 'https://nebo-kavkaz.ru',
-      dynamicRoutes: ['/', '/tandem', '/solo', '/sport', '/training', '/certificate', '/gallery'],
+      dynamicRoutes: ['/tandem', '/solo', '/sport', '/training', '/certificate', '/gallery'],
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
