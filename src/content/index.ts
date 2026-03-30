@@ -2,13 +2,13 @@
 // SHARED — used across multiple sections/pages
 // ============================================================
 
-const phone_shared = '+7 (928) 630-91-44'
-const phoneHref_shared = 'tel:+79286309144'
-const email_shared = 'info@nebo-kavkaz.ru'
-const emailHref_shared = 'mailto:info@nebo-kavkaz.ru'
-const address_shared = 'Ставропольский край, г. Ессентуки, Суворовское шоссе, 1'
-const hours_shared = 'Среда — Воскресенье, с 09:00 до 18:00'
-const socials_shared = [
+export const phone_shared = '+7 (928) 630-91-44'
+export const phoneHref_shared = 'tel:+79286309144'
+export const email_shared = 'info@nebo-kavkaz.ru'
+export const emailHref_shared = 'mailto:info@nebo-kavkaz.ru'
+export const address_shared = 'Ставропольский край, г. Ессентуки, Суворовское шоссе, 1'
+export const hours_shared = 'Среда — Воскресенье, с 09:00 до 18:00'
+export const socials_shared = [
   { name: 'VK', url: 'https://vk.com' },
   { name: 'TG', url: 'https://t.me' },
   { name: 'YT', url: 'https://youtube.com' },

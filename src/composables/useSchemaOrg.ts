@@ -1,4 +1,6 @@
 import { useHead } from '@unhead/vue'
+import { PHONE } from '@/constants'
+import { email_shared, address_shared } from '@/content'
 
 interface BreadcrumbItem {
   name: string
@@ -27,13 +29,13 @@ export function useSchemaOrg() {
             description:
               'Крупнейшая дропзона Кавказа. Тандем прыжки, обучение парашютизму, спортивные прыжки.',
             url: SITE_URL,
-            telephone: '+7-928-630-91-44',
-            email: 'info@nebo-kavkaz.ru',
+            telephone: PHONE.value,
+            email: email_shared,
             address: {
               '@type': 'PostalAddress',
               addressLocality: 'Ессентуки',
               addressRegion: 'Ставропольский край',
-              streetAddress: 'Суворовское шоссе, 1',
+              streetAddress: address_shared.split(', ')[2] || address_shared,
               addressCountry: 'RU',
             },
             geo: {
@@ -41,7 +43,14 @@ export function useSchemaOrg() {
               latitude: 44.057855,
               longitude: 42.832953,
             },
-            openingHours: ['We-Su 09:00-18:00'],
+            openingHoursSpecification: [
+              {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                opens: '09:00',
+                closes: '18:00',
+              },
+            ],
             priceRange: '2000₽ - 130000₽',
             image: `${SITE_URL}/images/og-image.svg`,
             sameAs: ['https://vk.com', 'https://t.me', 'https://youtube.com'],

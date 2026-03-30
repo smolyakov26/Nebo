@@ -5,6 +5,7 @@ import { useCertificateModal } from '@/composables/useCertificateModal'
 import { useEmail } from '@/composables/useEmail'
 import { certificateModalContent } from '@/content'
 import { PHONE_REGEX, FORM_TYPES } from '@/constants'
+import { formatPhone } from '@/utils/phone'
 
 const { isOpen, selectedDenomination, closeModal } = useCertificateModal()
 const { sendForm, error: submitError, clearError } = useEmail()
@@ -25,13 +26,6 @@ const formData = ref({
 const isSubmitted = ref(false)
 const isSubmitting = ref(false)
 const phoneError = ref('')
-
-const formatPhone = (phone: string): string => {
-  const digits = phone.replace(/\D/g, '')
-  // Strip leading 7 or 8 (country/trunk code), keep last 10 digits
-  const number = digits.length > 10 ? digits.slice(-10) : digits
-  return '+7' + number
-}
 
 const validatePhone = (phone: string): boolean => {
   const formatted = formatPhone(phone)

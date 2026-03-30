@@ -57,8 +57,6 @@ const handleImageError = () => {
           sizes="100vw"
         />
       </picture>
-      <!-- Editorial Gradient Overlay -->
-      <!-- <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" /> -->
     </div>
 
     <div class="relative z-10 w-full max-w-7xl mx-auto px-6">

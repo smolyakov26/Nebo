@@ -18,6 +18,7 @@ onMounted(() => {
       { threshold: 0.3 },
     )
     observer.observe(quoteRef.value)
+    return () => observer.disconnect()
   }
 })
 </script>
