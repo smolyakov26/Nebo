@@ -195,7 +195,7 @@ export const bookingContent = {
 export const galleryContent = {
   badge: 'Галерея',
   title: 'ФОТО И ВИДЕО',
-  titleAccent: 'С КЛУБА ЕССАВИЯ',
+  titleAccent: 'Незабываемые моменты',
   description:
     'Взгляните на наши прыжки, полеты и события через объектив камеры. Здесь собраны лучшие моменты из жизни нашего аэроклуба.',
   categories: [
