@@ -87,22 +87,6 @@ const handleImageError = () => {
         </BaseButton>
       </div>
     </div>
-
-    <!-- Stats -->
-    <div class="absolute left-6 bottom-12 hidden xl:flex flex-col gap-8" aria-hidden="true">
-      <div class="border-l border-white/20 pl-6">
-        <div class="text-4xl font-black text-white leading-none drop-shadow-lg">3000М</div>
-        <div class="text-[10px] font-bold text-slate-300 uppercase tracking-widest drop-shadow-md">
-          Высота выброски
-        </div>
-      </div>
-      <div class="border-l border-white/20 pl-6">
-        <div class="text-4xl font-black text-white leading-none drop-shadow-lg">200КМ/Ч</div>
-        <div class="text-[10px] font-bold text-slate-300 uppercase tracking-widest drop-shadow-md">
-          Свободное падение
-        </div>
-      </div>
-    </div>
   </section>
 </template>
 
