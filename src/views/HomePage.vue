@@ -7,6 +7,7 @@ import ExperienceSection from '@/components/ExperienceSection.vue'
 import AboutSection from '@/components/AboutSection.vue'
 import ContactsSection from '@/components/ContactsSection.vue'
 import Footer from '@/components/Footer.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import { Gift, Heart } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { useCertificateModal } from '@/composables/useCertificateModal'
@@ -78,13 +79,10 @@ useHead({
               <p class="text-lg text-rose-100 mb-8 leading-relaxed">
                 {{ certDescription }}
               </p>
-              <button
-                @click="openCertModal('17000')"
-                class="inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-5 text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-rose-600"
-              >
+              <BaseButton color="sky" size="lg" @click="openCertModal('17000')">
                 <Gift class="w-5 h-5" />
                 {{ cta.primary }}
-              </button>
+              </BaseButton>
             </div>
             <div class="grid grid-cols-2 gap-6">
               <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
@@ -126,18 +124,12 @@ useHead({
             {{ titleAccent }}
           </h2>
           <div class="flex flex-col sm:flex-row justify-center gap-8">
-            <button
-              @click="openModal('tandem')"
-              class="bg-white text-slate-900 px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-slate-900 hover:text-white transition-all rounded-full shadow-xl inline-block cursor-pointer focus-visible:bg-slate-900 focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sky-600"
-            >
+            <BaseButton color="sky" size="lg" @click="openModal('tandem')">
               {{ primaryCta }}
-            </button>
-            <button
-              @click="openModal('callback')"
-              class="border-2 border-white px-16 py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-white hover:text-sky-600 transition-all rounded-full inline-block cursor-pointer focus-visible:bg-white focus-visible:text-sky-600"
-            >
+            </BaseButton>
+            <BaseButton variant="outline" size="lg" @click="openModal('callback')">
               Обратный звонок
-            </button>
+            </BaseButton>
           </div>
         </div>
       </section>
