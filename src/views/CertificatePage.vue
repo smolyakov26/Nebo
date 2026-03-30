@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
@@ -9,6 +8,7 @@ import { PHONE } from '@/constants'
 import { certificateContent } from '@/content'
 import { useSeoMeta, useHead } from '@unhead/vue'
 import { useSchemaOrg } from '@/composables/useSchemaOrg'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const { openModal } = useCertificateModal()
 const {
@@ -44,26 +44,7 @@ addBreadcrumb([
 ])
 
 const iconMap = { Gift, Calendar, Sparkles, RefreshCw, CheckCircle }
-
-const isVisible = ref(false)
-const sectionRef = ref<HTMLElement | null>(null)
-
-onMounted(() => {
-  if (sectionRef.value) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible.value = true
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(sectionRef.value)
-    return () => observer.disconnect()
-  }
-})
+const { isVisible, elementRef } = useScrollAnimation()
 </script>
 
 <template>
@@ -71,7 +52,7 @@ onMounted(() => {
     <Navbar />
 
     <main>
-      <section ref="sectionRef" class="pt-40 pb-24 relative overflow-hidden">
+      <section ref="elementRef" class="pt-40 pb-24 relative overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-30">
           <picture>
             <source srcset="/images-optimized/sertificate.webp" type="image/webp" />

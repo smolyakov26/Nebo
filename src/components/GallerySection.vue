@@ -1,37 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { galleryContent } from '@/content'
 import { X, Camera, Video } from 'lucide-vue-next'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
-const isVisible = ref(false)
-const sectionRef = ref<HTMLElement | null>(null)
-let observer: IntersectionObserver | null = null
+const { elementRef } = useScrollAnimation()
 
 const currentFilter = ref<string>(galleryContent.categories[0]?.value ?? 'all')
 const modalIndex = ref<number>(-1)
-
-onMounted(() => {
-  if (sectionRef.value) {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible.value = true
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(sectionRef.value)
-  }
-})
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-    observer = null
-  }
-})
 
 const closeModal = () => {
   modalIndex.value = -1
@@ -65,7 +41,7 @@ const getImageJpeg = (src: string) => {
 </script>
 
 <template>
-  <section id="gallery" ref="sectionRef" class="py-20 bg-slate-950 relative overflow-hidden">
+  <section id="gallery" ref="elementRef" class="py-20 bg-slate-950 relative overflow-hidden">
     <div
       class="absolute top-0 left-0 w-full h-full bg-grid opacity-5 pointer-events-none"
       aria-hidden="true"

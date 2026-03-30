@@ -1,30 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { quoteContent } from '@/content'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
-const quoteRef = ref<HTMLElement | null>(null)
-const isVisible = ref(false)
-
-onMounted(() => {
-  if (quoteRef.value) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible.value = true
-          }
-        })
-      },
-      { threshold: 0.3 },
-    )
-    observer.observe(quoteRef.value)
-    return () => observer.disconnect()
-  }
-})
+const { isVisible, elementRef } = useScrollAnimation({ threshold: 0.3 })
 </script>
 
 <template>
-  <section ref="quoteRef" class="py-48 text-center relative overflow-hidden bg-slate-900">
+  <section ref="elementRef" class="py-48 text-center relative overflow-hidden bg-slate-900">
     <div class="absolute inset-0 bg-aurora opacity-40" aria-hidden="true" />
     <div class="max-w-4xl mx-auto px-6 relative z-10">
       <p

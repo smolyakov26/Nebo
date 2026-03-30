@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { computed } from 'vue'
 import { Shield, Users, Plane, Award } from 'lucide-vue-next'
 import { aboutContent } from '@/content'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
-const isVisible = ref(false)
-const sectionRef = ref<HTMLElement | null>(null)
-let observer: IntersectionObserver | null = null
+const { isVisible, elementRef } = useScrollAnimation()
 
 const iconMap: Record<string, typeof Award> = {
   Users,
@@ -21,33 +20,10 @@ const aboutImageWebp = computed(() => {
 const aboutImageJpeg = computed(() => {
   return aboutContent.image.replace('/images/', '/images-optimized/')
 })
-
-onMounted(() => {
-  if (sectionRef.value) {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible.value = true
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(sectionRef.value)
-  }
-})
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-    observer = null
-  }
-})
 </script>
 
 <template>
-  <section id="about" ref="sectionRef" class="py-32 bg-slate-950 relative overflow-hidden">
+  <section id="about" ref="elementRef" class="py-32 bg-slate-950 relative overflow-hidden">
     <div
       class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none"
       aria-hidden="true"

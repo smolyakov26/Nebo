@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { formatsContent } from '@/content'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const { openModal } = useBookingModal()
-const isVisible = ref(false)
-const sectionRef = ref<HTMLElement | null>(null)
-let observer: IntersectionObserver | null = null
+const { isVisible, elementRef } = useScrollAnimation()
 
 const getImageWebp = (src: string) => {
   return src
@@ -19,33 +17,10 @@ const getImageWebp = (src: string) => {
 const getImageJpeg = (src: string) => {
   return src.replace('/images/', '/images-optimized/')
 }
-
-onMounted(() => {
-  if (sectionRef.value) {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible.value = true
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(sectionRef.value)
-  }
-})
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-    observer = null
-  }
-})
 </script>
 
 <template>
-  <section id="formats" ref="sectionRef" class="py-32 bg-slate-950 relative overflow-hidden">
+  <section id="formats" ref="elementRef" class="py-32 bg-slate-950 relative overflow-hidden">
     <div class="absolute top-0 left-0 w-full h-full bg-grid opacity-20 pointer-events-none" />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">

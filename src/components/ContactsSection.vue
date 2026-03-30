@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-vue-next'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { contactsContent } from '@/content'
+import { useScrollAnimation } from '@/composables/useScrollAnimation'
 
 const { openModal } = useBookingModal()
-
-const isVisible = ref(false)
-const sectionRef = ref<HTMLElement | null>(null)
-let observer: IntersectionObserver | null = null
+const { isVisible, elementRef } = useScrollAnimation()
 
 const iconMap: Record<string, typeof MapPin> = {
   MapPin,
@@ -33,33 +30,10 @@ const contacts = [
   },
   { icon: 'Clock', label: 'Режим работы', value: contactsContent.hours },
 ]
-
-onMounted(() => {
-  if (sectionRef.value) {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            isVisible.value = true
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(sectionRef.value)
-  }
-})
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-    observer = null
-  }
-})
 </script>
 
 <template>
-  <section id="contacts" ref="sectionRef" class="py-32 bg-slate-900 relative overflow-hidden">
+  <section id="contacts" ref="elementRef" class="py-32 bg-slate-900 relative overflow-hidden">
     <div class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none" />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
