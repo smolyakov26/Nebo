@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-vue-next'
+import SectionHeader from './SectionHeader.vue'
+import GridBackground from './GridBackground.vue'
+import BaseButton from './BaseButton.vue'
 import { useBookingModal } from '@/composables/useBookingModal'
 import { contactsContent } from '@/content'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
@@ -34,18 +37,15 @@ const contacts = [
 
 <template>
   <section id="contacts" ref="elementRef" class="py-32 bg-slate-900 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none" />
+    <GridBackground color="sky" />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="text-center mb-16">
-        <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block">{{
-          contactsContent.badge
-        }}</span>
-        <h2 class="text-5xl md:text-6xl font-black text-white uppercase italic leading-none">
-          {{ contactsContent.title }}
-          <span class="text-slate-600">{{ contactsContent.titleAccent }}</span>
-        </h2>
-      </div>
+      <SectionHeader
+        :badge="contactsContent.badge"
+        :title="contactsContent.title"
+        :subtitle="contactsContent.titleAccent"
+        align="center"
+      />
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div :class="['space-y-6', isVisible ? 'animate-slide-in-left' : 'opacity-0']">
@@ -72,13 +72,10 @@ const contacts = [
             </div>
           </div>
 
-          <button
-            @click="openModal('tandem')"
-            class="w-full bg-sky-600 hover:bg-sky-500 text-white py-5 text-[11px] font-black uppercase tracking-widest transition-colors rounded-xl flex items-center justify-center gap-3 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-          >
+          <BaseButton color="sky" size="lg" full-width @click="openModal('tandem')">
             <Send class="w-5 h-5" />
             {{ contactsContent.cta }}
-          </button>
+          </BaseButton>
 
           <div class="hidden md:flex justify-center gap-4">
             <a

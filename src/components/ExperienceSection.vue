@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { Award, ShieldCheck, ArrowRight } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
+import SectionHeader from './SectionHeader.vue'
+import InfoCard from './InfoCard.vue'
 import { experienceContent } from '@/content'
-import { computed } from 'vue'
+import { useImageTransform } from '@/composables/useImageTransform'
+
+const { getImageWebp, getImageJpeg } = useImageTransform()
 
 const iconMap: Record<string, typeof Award> = {
-  Award,
-  ShieldCheck,
+  Award: Award,
+  ShieldCheck: ShieldCheck,
 }
 
-const experienceImageWebp = computed(() => {
-  return experienceContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
-})
-
-const experienceImageJpeg = computed(() => {
-  return experienceContent.image.replace('/images/', '/images-optimized/')
-})
+const experienceImageWebp = getImageWebp(experienceContent.image)
+const experienceImageJpeg = getImageJpeg(experienceContent.image)
 </script>
 
 <template>
@@ -23,40 +22,20 @@ const experienceImageJpeg = computed(() => {
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-16 items-start">
         <div class="lg:col-span-6">
-          <div class="text-center md:text-left">
-            <span
-              class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 sm:mb-6 md:mb-8 block"
-              >{{ experienceContent.badge }}</span
-            >
-            <h2
-              class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[0.9] mb-8 sm:mb-10 md:mb-12 uppercase italic"
-            >
-              {{ experienceContent.title }} <br />
-              <span class="text-slate-600">{{ experienceContent.subtitle }}</span> <br />
-              {{ experienceContent.subtitleAccent }}
-            </h2>
-          </div>
+          <SectionHeader
+            :badge="experienceContent.badge"
+            :title="experienceContent.title"
+            :subtitle="experienceContent.subtitle"
+          />
+
           <div class="space-y-4 sm:space-y-6 md:space-y-8">
-            <div
+            <InfoCard
               v-for="(feature, idx) in experienceContent.features"
               :key="idx"
-              tabindex="0"
-              class="flex gap-4 sm:gap-6 p-4 sm:p-6 bg-slate-800/50 border border-white/5 shadow-sm hover:border-sky-500/50 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg"
-            >
-              <div
-                class="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-sky-500/20 flex items-center justify-center shrink-0"
-              >
-                <component :is="iconMap[feature.icon]" class="w-5 sm:w-6 h-5 sm:h-6 text-sky-500" />
-              </div>
-              <div>
-                <h4 class="text-base sm:text-lg font-bold text-white mb-1 sm:mb-2 uppercase">
-                  {{ feature.title }}
-                </h4>
-                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                  {{ feature.description }}
-                </p>
-              </div>
-            </div>
+              :icon="iconMap[feature.icon]!"
+              :title="feature.title"
+              :description="feature.description"
+            />
           </div>
           <div class="text-center md:text-left mt-8 sm:mt-10 md:mt-12">
             <RouterLink

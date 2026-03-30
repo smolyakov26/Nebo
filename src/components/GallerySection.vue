@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { galleryContent } from '@/content'
 import { X, Camera, Video } from 'lucide-vue-next'
+import SectionHeader from './SectionHeader.vue'
+import GridBackground from './GridBackground.vue'
+import { galleryContent } from '@/content'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
+import { useImageTransform } from '@/composables/useImageTransform'
 
 const { elementRef } = useScrollAnimation()
+const { getImageWebp, getImageJpeg } = useImageTransform()
 
 const currentFilter = ref<string>(galleryContent.categories[0]?.value ?? 'all')
 const modalIndex = ref<number>(-1)
@@ -30,36 +34,20 @@ const currentModalItem = computed(() => {
   if (idx < 0 || idx >= filteredMedia.value.length) return null
   return filteredMedia.value[idx]
 })
-
-const getImageWebp = (src: string) => {
-  return src.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
-}
-
-const getImageJpeg = (src: string) => {
-  return src.replace('/images/', '/images-optimized/')
-}
 </script>
 
 <template>
   <section id="gallery" ref="elementRef" class="py-20 bg-slate-950 relative overflow-hidden">
-    <div
-      class="absolute top-0 left-0 w-full h-full bg-grid opacity-5 pointer-events-none"
-      aria-hidden="true"
-    />
+    <GridBackground color="sky" />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="text-center mb-12">
-        <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block">{{
-          galleryContent.badge
-        }}</span>
-        <h2 class="text-4xl md:text-5xl font-black text-white mb-6 uppercase italic leading-none">
-          {{ galleryContent.title }} <br />
-          <span class="text-slate-600">{{ galleryContent.titleAccent }}</span>
-        </h2>
-        <p class="text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto">
-          {{ galleryContent.description }}
-        </p>
-      </div>
+      <SectionHeader
+        :badge="galleryContent.badge"
+        :title="galleryContent.title"
+        :subtitle="galleryContent.titleAccent"
+        :description="galleryContent.description"
+        align="center"
+      />
 
       <!-- Filter Tabs -->
       <div class="flex flex-wrap justify-center gap-2 mb-10">

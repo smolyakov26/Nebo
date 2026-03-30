@@ -1,33 +1,29 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { Shield, Users, Plane, Award } from 'lucide-vue-next'
+import SectionHeader from './SectionHeader.vue'
+import StatCard from './StatCard.vue'
+import GridBackground from './GridBackground.vue'
 import { aboutContent } from '@/content'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
+import { useImageTransform } from '@/composables/useImageTransform'
 
 const { isVisible, elementRef } = useScrollAnimation()
+const { getImageWebp, getImageJpeg } = useImageTransform()
 
 const iconMap: Record<string, typeof Award> = {
-  Users,
-  Shield,
-  Award,
-  Plane,
+  Users: Users,
+  Shield: Shield,
+  Award: Award,
+  Plane: Plane,
 }
 
-const aboutImageWebp = computed(() => {
-  return aboutContent.image.replace('/images/', '/images-optimized/').replace('.jpg', '.webp')
-})
-
-const aboutImageJpeg = computed(() => {
-  return aboutContent.image.replace('/images/', '/images-optimized/')
-})
+const aboutImageWebp = getImageWebp(aboutContent.image)
+const aboutImageJpeg = getImageJpeg(aboutContent.image)
 </script>
 
 <template>
   <section id="about" ref="elementRef" class="py-32 bg-slate-950 relative overflow-hidden">
-    <div
-      class="absolute top-0 left-0 w-full h-full bg-grid opacity-10 pointer-events-none"
-      aria-hidden="true"
-    />
+    <GridBackground color="sky" />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -55,18 +51,11 @@ const aboutImageJpeg = computed(() => {
         </div>
 
         <div :class="['space-y-8', isVisible ? 'animate-slide-in-right' : 'opacity-0']">
-          <div>
-            <span
-              class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block"
-              >{{ aboutContent.badge }}</span
-            >
-            <h2
-              class="text-5xl md:text-6xl font-black text-white mb-6 uppercase italic leading-none"
-            >
-              {{ aboutContent.title }} <br />
-              <span class="text-slate-600">{{ aboutContent.titleAccent }}</span>
-            </h2>
-          </div>
+          <SectionHeader
+            :badge="aboutContent.badge"
+            :title="`${aboutContent.title} ${aboutContent.titleAccent}`"
+            :subtitle="undefined"
+          />
 
           <p class="text-slate-300 text-lg leading-relaxed">
             {{ aboutContent.description }}
@@ -77,17 +66,13 @@ const aboutImageJpeg = computed(() => {
           </p>
 
           <div class="grid grid-cols-2 gap-6 pt-4">
-            <div
+            <StatCard
               v-for="(stat, idx) in aboutContent.stats"
               :key="idx"
-              class="bg-slate-900/50 border border-white/10 rounded-xl p-6"
-            >
-              <component :is="iconMap[stat.icon]" class="w-6 h-6 text-sky-500 mb-3" />
-              <div class="text-2xl font-black text-white mb-1">{{ stat.value }}</div>
-              <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                {{ stat.label }}
-              </div>
-            </div>
+              :icon="iconMap[stat.icon]!"
+              :value="stat.value"
+              :label="stat.label"
+            />
           </div>
         </div>
       </div>

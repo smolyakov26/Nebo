@@ -1,43 +1,30 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { useBookingModal } from '@/composables/useBookingModal'
+import SectionHeader from './SectionHeader.vue'
+import GridBackground from './GridBackground.vue'
+import BaseButton from './BaseButton.vue'
 import { formatsContent } from '@/content'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
+import { useImageTransform } from '@/composables/useImageTransform'
 
 const { openModal } = useBookingModal()
 const { isVisible, elementRef } = useScrollAnimation()
+const { getImageWebp, getImageJpeg } = useImageTransform()
 
-const getImageWebp = (src: string) => {
-  return src
-    .replace('/images/', '/images-optimized/')
-    .replace('.jpg', '.webp')
-    .replace('.png', '.webp')
-}
-
-const getImageJpeg = (src: string) => {
-  return src.replace('/images/', '/images-optimized/')
-}
+import { useBookingModal } from '@/composables/useBookingModal'
 </script>
 
 <template>
   <section id="formats" ref="elementRef" class="py-32 bg-slate-950 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full bg-grid opacity-20 pointer-events-none" />
+    <GridBackground color="sky" />
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="text-center md:text-left mb-16 md:mb-24">
-        <span class="text-sky-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-4 block">{{
-          formatsContent.badge
-        }}</span>
-        <h2
-          class="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 md:mb-8 uppercase italic leading-none"
-        >
-          {{ formatsContent.title }} <br />
-          <span class="text-slate-600">{{ formatsContent.subtitle }}</span>
-        </h2>
-        <p class="text-slate-400 text-sm leading-relaxed max-w-xl mx-auto md:mx-0">
-          {{ formatsContent.description }}
-        </p>
-      </div>
+      <SectionHeader
+        :badge="formatsContent.badge"
+        :title="formatsContent.title"
+        :subtitle="formatsContent.subtitle"
+        :description="formatsContent.description"
+      />
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         <article
@@ -103,12 +90,14 @@ const getImageJpeg = (src: string) => {
             >
               ПОДРОБНЕЕ
             </RouterLink>
-            <button
+            <BaseButton
               @click="openModal(format.id)"
-              class="flex-1 bg-sky-600 hover:bg-sky-500 text-white py-3 sm:py-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-500 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-inset"
+              color="sky"
+              size="sm"
+              class="flex-1 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-500"
             >
               ЗАБРОНИРОВАТЬ
-            </button>
+            </BaseButton>
           </div>
         </article>
       </div>
