@@ -1,0 +1,4 @@
+PassengerNodejs /home/u/username/.local/bin/node
+PassengerAppRoot /home/alx/land_sky_vue
+PassengerAppType node
+PassengerStartupFile server.js
