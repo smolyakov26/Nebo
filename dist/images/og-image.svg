@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <text x="600" y="280" font-family="Arial Black, sans-serif" font-size="80" font-weight="900" fill="white" text-anchor="middle">НЕБО КАВКАЗАА</text>
+  <text x="600" y="360" font-family="Arial, sans-serif" font-size="36" fill="#94a3b8" text-anchor="middle">Прыжки с парашютом в Ессентуках</text>
+  <path d="M600 150 C550 180 500 200 450 220 C400 240 380 260 380 280 C380 300 400 310 450 305 C500 300 550 270 600 240 C650 210 700 180 750 160 C800 140 820 140 820 160 C820 180 800 200 750 220" fill="none" stroke="white" stroke-width="3"/>
+  <path d="M600 240 L600 420" stroke="white" stroke-width="3"/>
+  <path d="M600 420 C600 420 520 380 480 350" stroke="white" stroke-width="3"/>
+  <path d="M600 420 C600 420 680 380 720 350" stroke="white" stroke-width="3"/>
+</svg>
